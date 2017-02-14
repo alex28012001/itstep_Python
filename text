@@ -1,4 +1,4 @@
 print(text.upper()) - верхний регистр
 print(text.lower()) - нижний регистр
-print(text.title()) -
-print(text.replace()) -
+print(text.title()) - первые буквы слов большие
+print(text.replace(слово на которое надо заменить)) 
