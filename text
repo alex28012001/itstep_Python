@@ -1,0 +1,4 @@
+print(text.upper()) - верхний регистр
+print(text.lower()) - нижний регистр
+print(text.title()) -
+print(text.replace()) -
