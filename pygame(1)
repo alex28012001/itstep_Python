@@ -1,0 +1,33 @@
+import pygame
+
+window = pygame.display.set_mode((1920, 1080))
+pygame.display.set_caption('Hello, pygame!')
+screen = pygame.Surface((1920, 1080))
+
+square = pygame.Surface((40, 40))
+square.fill((0, 255, 0))
+x = 0
+square_go_right = True
+
+done = True
+while done:
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            done = False
+
+    screen.fill((50, 50, 50))
+
+    if square_go_right == True:
+        x += 50
+        if x > 1880:
+            square_go_right = False
+    else:
+        x -= 50
+        if x < 0:
+            square_go_right = True
+
+
+
+    screen.blit(square, (x, 500))
+    window.blit(screen, (0, 0))
+    pygame.display.flip()
