@@ -1,0 +1,59 @@
+import random
+
+mass = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+random.shuffle(mass)
+a = mass.pop(0)
+a += mass.pop(0) #сумма 2  карт игрока
+
+b = mass.pop(1) #сумма 2 карта диллера
+b += mass.pop(1)
+
+print("Сумма 2 карт(игрока) : ", a)
+
+d =" " #диллер
+s =" " #игрок
+
+
+#first player
+while s!='нет':
+    s = input("Игрок вы хотите еще взять карту ? да/нет :")
+    if s == "да":
+        a +=mass.pop(0)
+        print(a)
+        if a >21:
+           print("Прости парень ты проиграл!")
+
+    else:
+        print("\n")
+        print("Сумма 2 карт диллера : ", b)
+
+
+
+
+# diller
+while d != 'нет':
+
+    d = input("Диллер вы хотите еще взять карту ? да/нет :")
+    if d == "да":
+        b += mass.pop(1)
+        print(b)
+
+        if b>21:
+            print("Диллер ты проиграл!")
+
+    else:
+
+        print("Cчет игрока : ", a)
+        print("Счет диллера :", b)
+
+        if a>21 and b>21:
+            print("Никто не победил :(")
+
+        if a==21 and b==21:
+            print("Вы оба выйграли!")
+
+        if a>b and a <= 21:
+            print("Игрок Победил!")
+
+        else:
+            print("Диллер победил!")
