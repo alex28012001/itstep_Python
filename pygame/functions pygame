@@ -1,0 +1,54 @@
+window = pygame.display.set_mode((1000, 600))  -  создает окно 1000 на 600
+
+pygame.display.set_caption("Игра 1.0") - название окна 
+
+screen = pygame.Surface((1000, 600)) - создание кокого либо обьекта(игровой экран)
+
+screen.fill((50, 50, 50)) - цвет обьекта (игрового экрана)
+
+
+done = True
+while done :
+    for e in pygame.event.get():    -   событие закрытия окна
+        if e.type == pygame.QUIT:
+            done = False
+
+
+window.blit(screen, (0, 0)) - начало отрисовки обьекта (игрового экрана)
+
+pygame.display.flip() - показывает окно
+
+pygame.time.delay(25) - замедляет действия в окне
+
+myimage = pygame.image.load("krest.png").convert() - создание обьекта(картинки,картинку надо загружать там где исполняемый файл)
+
+myimage = pygame.transform.scale(myimage, (100, 100)) - конвертация картинки
+
+
+def Intersect(x1, x2, y1, y2):
+    if (x1 > x2-60) and (x1 < x2+60) and (y1 < y2+60):  -  функция при которой обьекты сталькиваються и отпружиниваються друг от друга
+        return 1
+    else:
+        return 0
+       
+       ( ее пример:
+           if Intersect(x, x_2, y, y_2) == True:
+        go_right_2 = False
+        go_right = True  )
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
