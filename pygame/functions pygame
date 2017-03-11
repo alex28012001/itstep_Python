@@ -25,16 +25,22 @@ myimage = pygame.image.load("krest.png").convert() - создание обьек
 myimage = pygame.transform.scale(myimage, (100, 100)) - конвертация картинки
 
 
-def Intersect(x1, x2, y1, y2):
-    if (x1 > x2-60) and (x1 < x2+60) and (y1 < y2+60):  -  функция при которой обьекты сталькиваються и отпружиниваються друг от друга
+
+
+ def Intersect(x1, x2, y1, y2):
+    if (x1 > x2-70) and (x1 < x2 + 200) and (y1 > y2-70) and (y1 < y2+30):
         return 1
     else:
-        return 0
+        return 0      -         функция при которой обьекты сталькиваються и отпружиниваються друг от друга
+      EE ПРИМЕР:
+      
+          if Intersect(ball_x, panel_x, ball_y, panel_y) == True:
+            ball_down = False
+
+            ball_down = True
        
-       ( EE ПРИМЕР:
-           if Intersect(x, x_2, y, y_2) == True:
-        go_right_2 = False
-        go_right = True  )
+       
+   
         
         
         
