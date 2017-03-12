@@ -1,29 +1,51 @@
-
 import pygame
 
-window = pygame.display.set_mode((1000, 600))
+"""окно"""
+window = pygame.display.set_mode((1000, 660))
 pygame.display.set_caption("Игра 1.0")
+
+"""холст"""
 screen = pygame.Surface((1000, 600))
 
+"""строка состояния"""
+info_string = pygame.Surface((1000, 60))
+schet = 0
+
+"""описание мяча"""
 ball = pygame.image.load("ball.png").convert()
 ball = pygame.transform.scale(ball, (70, 70))
+ball_step = 1
 
+
+"""координаты мяча"""
 ball_x = 470
 ball_y = 230
 ball_right = True
 ball_down = True
 
+
+"""шрифты"""
+pygame.font.init()
+speed_font = pygame.font.SysFont("Buxton Sketch", 50)
+inf_font = pygame.font.SysFont("Buxton Sketch", 50)
+
+
+"""описание полосы сверху"""
 poloca = pygame.Surface((1000, 20))
 poloca.fill((105, 105, 105))
 
+
+"""описание панели снизу"""
 panel = pygame.Surface((200, 30))
 panel.fill((128, 128, 128))
 
+
+"""координаты панели"""
 panel_x = 400
 panel_y = 520
 
 
-
+"""функция для столкновения обьектов"""
 def Intersect(x1, x2, y1, y2):
     if (x1 > x2-70) and (x1 < x2 + 200) and (y1 > y2-70) and (y1 < y2+30):
         return 1
@@ -32,6 +54,7 @@ def Intersect(x1, x2, y1, y2):
 
 
 
+"""событие закрытия окна"""
 done = True
 pygame.key.set_repeat(1, 1)
 while done :
@@ -41,57 +64,69 @@ while done :
 
 
 
-
+        """передвижение панели клавишами"""
         if e.type == pygame.KEYDOWN:
 
             if e.key == pygame.K_LEFT:
                 if panel_x > 0:
-                    panel_x -= 1
+                    panel_x -= 2
 
             if e.key == pygame.K_RIGHT:
                 if panel_x < 800:
-                    panel_x += 1
+                    panel_x += 2
 
 
 
-
+    """передвежиние мяча по оси x и y"""
     if ball_right == True:
-        ball_x += 0.7
+        ball_x += ball_step
         if ball_x > 930:
             ball_right = False
 
     else:
-        ball_x -= 0.7
+        ball_x -= ball_step
         if ball_x < 0:
             ball_right = True
 
 
     if ball_down == True:
-        ball_y -= 0.7
+        ball_y -= ball_step
         if ball_y < 40:
             ball_down = False
 
     else:
-        ball_y += 0.7
-        if ball_y > 1000:
+        ball_y += ball_step
+        if ball_y > 800:
+            schet -= 1
             ball_down = True
 
-
+    """заливка"""
     screen.fill((0, 0, 0))
+    info_string.fill((138, 43, 226))
 
 
     if Intersect(ball_x, panel_x, ball_y, panel_y) == True:
             ball_down = False
+            ball_step += 0.01
+            schet += 1
 
             ball_down = True
 
 
 
-
+    """отрисовка объктов"""
     screen.blit(panel, (panel_x, panel_y))
     screen.blit(poloca, (0, 20))
     screen.blit(ball, (ball_x, ball_y))
 
-    window.blit(screen, (0, 0))
+    """отрисовка шрифтов"""
+    info_string.blit(speed_font.render('Cкорость мяча: '+str(ball_step), 5, (255, 99, 71)), (5, 3))
+    info_string.blit(inf_font.render('Счёт: '+str(schet), 5, (255, 99, 71)), (770, 3))
+
+
+    """отображение холста на экран"""
+    window.blit(info_string, (0, 0))
+    window.blit(screen, (0, 60))
     pygame.display.flip()
     pygame.time.delay(-20)
+
