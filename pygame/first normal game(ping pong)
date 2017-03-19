@@ -309,7 +309,7 @@ while done :
     
     
     ----------------------------------------------------------------------------------------------------------------------------------
-    
+    ping pong with menu
     
     
 import random
@@ -548,5 +548,449 @@ while done :
     window.blit(screen, (0, 60))
     pygame.display.flip()
     pygame.time.delay(-20)
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+2 игры вместе ping pong и ping pong 2 реализованы в меню(попытка неудачная)
+
+
+
+
+import random
+import pygame
+import sys
+
+"""окно"""
+window = pygame.display.set_mode((1200, 710))
+pygame.display.set_caption("Игра 1.0")
+
+"""холст"""
+screen = pygame.Surface((1200, 640))
+
+"""строка состояния"""
+info_string = pygame.Surface((1200, 60))
+schet = 0
+
+"""описание мяча"""
+ball = pygame.image.load("ball.png").convert()
+ball = pygame.transform.scale(ball, (70, 70))
+ball_step = 1
+
+
+"""координаты мяча"""
+a = random.randint(0, 1000)
+b = random.randint(60, 400)
+
+ball_x = a
+ball_y = b
+ball_right = True
+ball_down = True
+
+
+"""шрифты"""
+pygame.font.init()
+speed_font = pygame.font.SysFont("Buxton Sketch", 50)
+inf_font = pygame.font.SysFont("Buxton Sketch", 50)
+
+
+"""описание полосы сверху"""
+poloca = pygame.Surface((1200, 20))
+poloca.fill((105, 105, 105))
+
+
+"""описание панели снизу"""
+panel = pygame.Surface((200, 30))
+panel.fill((128, 128, 128))
+
+
+"""координаты панели"""
+panel_x = 500
+panel_y = 580
+
+
+
+class Menu:
+    def __init__(self, punkts = [120, 140, 'Punkt', (250, 250, 30), (50, 30, 50)]):
+        self.punkts = punkts
+    def render (self, poverhnost, font, num_punkt):
+        for i in self.punkts:
+            if num_punkt == i[5]:
+                poverhnost.blit(font.render(i[2], 1, i[4]), (i[0], i[1]-60))
+
+            else:
+                poverhnost.blit(font.render(i[2], 1, i[3]), (i[0], i[1]-60))
+
+    def menu (self):
+        done = True
+        font_menu = pygame.font.SysFont("Buxton Sketch", 100)
+
+        pygame.key.set_repeat(0, 0)
+        pygame.mouse.set_visible(True)
+
+        punkt = 0
+        while done:
+            info_string.fill((119, 136, 153))
+            screen.fill((119, 136, 153))
+
+            mp = pygame.mouse.get_pos()
+            for i in self.punkts:
+                if mp [0]>i[0] and mp[0]<i[0]+200 and mp[1]>i[1] and mp[1]<i[1]+100:
+                    punkt = i[5]
+            self.render(screen, font_menu , punkt)
+
+
+            for e in pygame.event.get():
+                if e.type == pygame.QUIT:
+                    sys.exit()
+                if e.type == pygame.KEYDOWN:
+                    if e.key == pygame.K_ESCAPE:
+                        sys.exit()
+
+                    if e.key == pygame.K_UP:
+                        if punkt >0:
+                            punkt -=1
+
+                    if e.key == pygame.K_DOWN:
+                        if punkt < len(self.punkts)-1:
+                            punkt +=1
+
+
+
+
+
+                if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
+                    if punkt == 0:
+                        done = False
+                    elif punkt == 1:
+                        sys.exit()
+                    elif punkt == 2:
+                        done = False
+
+            window.blit(info_string, (0, 0))
+            window.blit(screen, (0, 60))
+            pygame.display.flip()
+
+
+
+
+"""функция для столкновения обьектов"""
+def Intersect(x1, x2, y1, y2):
+    if (x1 > x2-70) and (x1 < x2 + 200) and (y1 > y2-70) and (y1 < y2+30):
+        return 1
+    else:
+        return 0
+
+
+"""создаем меню"""
+punkts = [(500, 160, 'Game', (250, 250, 30), (0, 0, 0), 0),
+          (500, 260, 'Quit', (250, 250, 30), (0, 0, 0), 1),
+          (500, 360, '2 game', (250, 250, 30), (0, 0, 0), 2)]
+
+
+
+game = Menu(punkts)
+game.menu()
+
+
+
+"""подготовка к запуску игры"""
+"""событие закрытия окна"""
+
+
+
+
+done = True
+pygame.key.set_repeat(1, 1)
+pygame.mouse.set_visible(False)
+while done:
+
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            done = False
+
+
+
+        """передвижение панели клавишами"""
+        if e.type == pygame.KEYDOWN:
+
+            if e.key == pygame.K_LEFT:
+                if panel_x > 0:
+                    panel_x -= 2
+
+            if e.key == pygame.K_RIGHT:
+                if panel_x < 1000:
+                    panel_x += 2
+
+            if e.key == pygame.K_ESCAPE:
+                game.menu()
+
+
+    """передвежиние мяча по оси x и y"""
+    if ball_right == True:
+        ball_x += ball_step
+        if ball_x > 1130:
+            ball_right = False
+
+    else:
+        ball_x -= ball_step
+        if ball_x < 0:
+            ball_right = True
+
+
+    if ball_down == True:
+        ball_y -= ball_step
+
+        if ball_y < 40:
+            ball_down = False
+
+    else:
+        ball_y += ball_step
+        if ball_y > 800:
+            schet -= 2
+            ball_down = True
+
+
+
+
+    """заливка"""
+    screen.fill((0, 0, 0))
+    info_string.fill((138, 43, 226))
+
+
+
+
+    if Intersect(ball_x, panel_x, ball_y, panel_y) == True:
+
+        if (ball_x < panel_x + 200):
+            ball_down = True
+            ball_right = True
+            ball_step += 0.05
+            schet += 1
+
+
+        if (ball_x < panel_x +100):
+            ball_down = True
+            ball_right = False
+            ball_step += 0.05
+            schet += 1
+
+
+
+
+
+
+
+
+
+
+    """отрисовка объктов"""
+    screen.blit(panel, (panel_x, panel_y))
+    screen.blit(poloca, (0, 20))
+
+
+    screen.blit(ball, (ball_x, ball_y))
+
+    """отрисовка шрифтов"""
+    info_string.blit(speed_font.render('Cкорость мяча: '+str(ball_step), 5, (255, 99, 71)), (60, 3))
+    info_string.blit(inf_font.render('Счёт: '+str(schet), 5, (255, 99, 71)), (900, 3))
+
+    """отображение холста на экран"""
+    window.blit(info_string, (0, 0))
+    window.blit(screen, (0, 60))
+    pygame.display.flip()
+    pygame.time.delay(-20)
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""2 ИГРА"""
+
+window_2 = pygame.display.set_mode((1200, 710))
+pygame.display.set_caption("Игра  2 0")
+screen_2 = pygame.Surface((1200, 710))
+
+"""обьекты"""
+panelka = pygame.Surface((20, 150))
+panelka_2 = pygame.Surface((20, 150))
+polocka = pygame.Surface((10, 660))
+polocka_2 = pygame.Surface((1200, 10))
+ball1 = pygame.image.load("ball11.png").convert()
+ball1 = pygame.transform.scale(ball1, (80, 80))
+
+"""шрифты"""
+pygame.font.init()
+inf_font1 = pygame.font.SysFont("Buxton Sketch", 50)
+
+
+"""координаты обьектов"""
+polocka_x = 600
+polocka_y = 0
+polocka_2_x = 0
+polocka_2_y = 650
+
+panelka_x = 50
+panelka_y = 300
+panelka_down = False
+panelka_up = False
+
+
+panelka_2_x = 1130
+panelka_2_y = 300
+panelka_2_down = False
+panelka_2_up = False
+
+ball1_x = 0
+ball1_y = 0
+ball1_right = True
+ball1_down = True
+ball1_step = 1
+schet_1 = 0
+schet_2 = 0
+
+
+
+
+def Intersect3(x1, x2, y1, y2):
+    if (x1 > x2-80) and (x1 < x2 + 20) and (y1 > y2-70) and (y1 < y2+150):
+        return 1
+    else:
+        return 0
+
+def Intersect4(x1, x2, y1, y2):
+    if (x1 > x2-80) and (x1 < x2 + 20) and (y1 > y2-70) and (y1 < y2+150):
+        return 1
+    else:
+        return 0
+
+
+"""закрытие окна"""
+done1 = True
+while done1:
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            done1 = False
+        """Передвижение 2 панелей"""
+        if e.type == pygame.KEYDOWN:
+
+            if e.key == pygame.K_UP:
+                panelka_2_up = True
+
+            if e.key == pygame.K_DOWN:
+                panelka_2_down = True
+
+            if e.key == pygame.K_w:
+                panelka_up = True
+
+            if e.key == pygame.K_s:
+                panelka_down = True
+
+            if e.key == pygame.K_ESCAPE:
+                game.menu()
+
+        if e.type == pygame.KEYUP:
+            if e.key == pygame.K_UP:
+                panelka_2_up = False
+
+            if e.key == pygame.K_DOWN:
+                panelka_2_down = False
+
+            if e.key == pygame.K_w:
+                panelka_up = False
+
+            if e.key == pygame.K_s:
+                panelka_down = False
+
+
+            if e.key == pygame.K_ESCAPE:
+                game.menu()
+
+
+    if panelka_2_up == True:
+        if panelka_2_y > 0:
+            panelka_2_y -= 1.5
+
+    if panelka_2_down == True:
+        if panelka_2_y < 500:
+            panelka_2_y += 1.5
+
+    if panelka_up == True:
+        if panelka_y > 0:
+            panelka_y -= 1.5
+
+    if panelka_down == True:
+        if panelka_y <500:
+            panelka_y += 1.5
+
+        """ПЕРЕДВИЖЕНИЕ МЯЧА"""
+    if ball1_right == True:
+        ball1_x += ball1_step
+        if ball1_x > 1280:
+            schet_2 -= ball1_step
+            ball1_right = False
+
+
+    else:
+        ball1_x -= ball1_step
+        if ball1_x < -90:
+            schet_1 -= 1
+            ball1_right = True
+
+    if ball1_down == True:
+        ball1_y -= ball1_step
+        if ball1_y < 40:
+            ball1_down = False
+
+    else:
+        ball1_y += ball1_step
+        if ball1_y > 590:
+            ball1_down = True
+
+
+
+    screen_2.fill((50, 50, 50))
+
+
+    if Intersect3(ball1_x, panelka_x, ball1_y, panelka_y) == True:
+        ball1_right = True
+        ball1_down = True
+        schet_1 += 1
+        ball1_step += 0.25
+
+    if Intersect4(ball1_x, panelka_2_x, ball1_y, panelka_2_y) == True:
+        ball1_right = False
+        ball1_down = True
+        schet_2 += 1
+        ball1_step += 0.25
+
+
+
+    screen_2.blit(inf_font.render('Счёт: ' + str(schet_2), 5, (255, 99, 71)), (655, 3))
+    screen_2.blit(inf_font.render('Счёт: ' + str(schet), 5, (255, 99, 71)), (400, 3))
+    screen_2.blit(inf_font.render('Скорость мяча: ' + str(ball_step), 5, (255, 99, 71)), (440, 650))
+
+    """отрисовка обьектов"""
+    screen_2.blit(ball1, (ball1_x, ball1_y))
+    screen_2.blit(polocka_2, (polocka_2_x, polocka_2_y))
+    screen_2.blit(polocka, ((polocka_x, polocka_y)))
+    screen_2.blit(panelka, (panelka_x, panelka_y))
+    screen_2.blit(panelka_2, (panelka_2_x, panelka_2_y))
+    window_2.blit(screen_2, (0, 0))
+    pygame.display.flip()
+
+
+
+
+
 
 
