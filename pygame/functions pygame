@@ -163,7 +163,52 @@ game = Menu(punkts)
 game.menu()
 
 
+----------------------------------------------------------------------------------------------------------------------------
+Платформер
 
+
+level = [
+    '----------------',
+    '-              -',
+    '-              -',
+    '-              -',
+    '-    --        -',
+    '-              -',          -    шаблон уровня
+    '-              -',
+    '-        --    -',
+    '-              -',
+    '-              -',
+    '-              -',
+    '----------------']
+    
+    
+ def make_level(level, platform):
+    x = 0
+    y = 0
+    for row in level:
+        for col in row:
+            if col == '-':
+                screen.blit(platform.img, (x, y))    -   функция создания уровня
+            x +=40
+        y += 40
+        x = 0
+        
+      
+      
+      
+stena = pygame.image.load("stena.jpg").convert()
+stena = pygame.transform.scale(stena, (40, 40))
+
+ class Platform:
+    def __init__(self):      -       класс для отрисовки блоков
+        self.img = stena
+              
+pl = Platform()
+        
+       
+    make_level(level, pl)      -      отрисовка уровня
+  
+     
                         
         
         
