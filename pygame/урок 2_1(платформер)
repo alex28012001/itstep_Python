@@ -1,6 +1,6 @@
 import pygame
 
-SIZE = (640, 480)
+SIZE = (800, 600)
 
 window = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Платформер")
@@ -15,31 +15,34 @@ class Platform:
         self.img = stena
 
 
-def make_level(level, platform):
+def make_level(level, platforma):
     x = 0
     y = 0
     for row in level:
         for col in row:
             if col == '-':
-                screen.blit(platform.img, (x, y))
+                screen.blit(platforma.img, (x, y))
             x +=40
         y += 40
         x = 0
 
 
 level = [
-    '----------------',
-    '-              -',
-    '-              -',
-    '-              -',
-    '-    --        -',
-    '-              -',
-    '-              -',
-    '-        --    -',
-    '-              -',
-    '-              -',
-    '-              -',
-    '----------------']
+    '--------------------',
+    '-                  -',
+    '-                  -',
+    '-                  -',
+    '-    --            -',
+    '-                  -',
+    '-                  -',
+    '-        --        -',
+    '-                  -',
+    '-   -     -        -',
+    '-                  -',
+    '-                  -',
+    '-                  -',
+    '-                  -',
+    '--------------------']
 
 pl = Platform()
 
