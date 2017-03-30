@@ -1,0 +1,130 @@
+class Car(object):
+    pedal_dvish = False
+    pedal_tormoz = False
+    dvig_off = False
+    fari_on = False
+    dveri_on = False
+    dvigatel = False
+
+
+
+    def __init__(self, name):
+        self.name = name
+        print("Добро пожаловать в ", self.name)
+
+
+
+
+    def zajiganie(self):
+        self.dvigatel = input("Вы хотите завести свою машину да/нет?")
+        if self.dvigatel == 'да':
+
+            if self.dveri_on() == 'да':
+                print("ваша ", self.name, " заведена")
+            else:
+                print("Вы еще не вошл в машину")
+
+
+        if self.dvigatel == 'нет':
+            print("Ну нет так нет")
+
+
+
+
+    def ezda(self,):
+        self.pedal_dvish = input("Вы хотите поехать да/нет?")
+        if self.pedal_dvish == 'да':
+            print("Вы едете ")
+
+        else:
+            print("Ну и не едте")
+
+
+
+
+
+
+    def tormoz(self):
+        self.pedal_tormoz = input("Вы хотите затормозить да/нет?")
+        if self.pedal_tormoz == 'да':
+            print(self.name, " затормазила")
+
+
+
+
+    def ostanovka_dvigately(self):
+        self.dvig_off = input("Вы хотите остановить двигатель да/нет?")
+        if self.dvig_off == 'да':
+            print("двигатель машины", self.name, " остановлен")
+
+
+
+
+
+    def fari(self):
+        self.fari_on = input("Вы хотите включить фары?")
+        if self.fari_on == "да":
+            print("Ваши фары включены")
+
+        else:
+            print("Ну и не включайте")
+
+
+
+
+
+    def dveri(self):
+        self.dveri_on = input("Вы хотите закрыть или открыть двери да/нет?")
+        if self.dveri_on == "да":
+            print("Ваши двери открыты ")
+
+        else:
+            print("ну и не открывайте")
+
+
+
+
+
+def main():
+    car_name = input("Введите марку вашего автомобиля: ")
+    car = Car(car_name)
+
+    choice = None
+    while choice != 7:
+        print("\nФункционал машины:"
+              + "\n\t1.Зажигание"
+              + "\n\t2.Езда"
+              + "\n\t3.Тормоз"
+              + "\n\t4.Остановка двигателя"
+              + "\n\t5.Включение фар"
+              + "\n\t6.Открытие и закрытие дверей"
+              + "\n\t7.Выход\n\n")
+
+        choice = input("Ваш выбор:")
+
+        if choice == '7':
+            print("Досвидание")
+
+        elif choice == '1':
+            car.zajiganie()
+
+        elif choice == '2':
+            car.ezda()
+
+        elif choice == '3':
+            car.tormoz()
+
+        elif choice == '4':
+            car.ostanovka_dvigately()
+
+        elif choice == '5':
+            car.fari()
+
+        elif choice == '6':
+            car.dveri()
+
+        elif choice == '7':
+            print("Досвидание")
+
+
+main()
