@@ -1,9 +1,11 @@
 class Car(object):
     pedal_dvish = False
     pedal_tormoz = False
-    dvig_off = False
+    dvig_off = True
     fari_on = False
+    fari_off = True
     dveri_on = False
+    dveru_off = True
     dvigatel = False
 
 
@@ -16,70 +18,165 @@ class Car(object):
 
 
     def zajiganie(self):
-        self.dvigatel = input("Вы хотите завести свою машину да/нет?")
-        if self.dvigatel == 'да':
-
-            if self.dveri_on() == 'да':
-                print("ваша ", self.name, " заведена")
-            else:
-                print("Вы еще не вошл в машину")
-
-
-        if self.dvigatel == 'нет':
-            print("Ну нет так нет")
-
-
-
-
-    def ezda(self,):
-        self.pedal_dvish = input("Вы хотите поехать да/нет?")
-        if self.pedal_dvish == 'да':
-            print("Вы едете ")
+        if self.dveri_on == True:
+            print("\nВы завели свою машину(", self.name, ")")
+            self.dvigatel = True
 
         else:
-            print("Ну и не едте")
+            print("Вы еще не зашли в машину ,чтобы завести ее")
+            self.dvigatel = False
 
+
+
+
+
+
+
+    def ezda(self):
+        if self.dveri_on == True and self.dvigatel == True:
+            self.pedal_dvish = True
+            print("\nВы едете")
+
+        else:
+            if self.dveri_on == False:
+                print("Вы не можете ехать из - за того что вы не вошли в машину")
+                self.pedal_dvish = False
+
+            elif self.dvigatel == False:
+                print("Вы не можете ехать из - за того что вы не завели машину")
+                self.pedal_dvish = False
+
+            elif self.dveri_on == False and self.dvigatel == False:
+                print("Вы не можете ехать из - за того что вы не вошли в машину и не завели ее")
+                self.pedal_dvish = False
 
 
 
 
 
     def tormoz(self):
-        self.pedal_tormoz = input("Вы хотите затормозить да/нет?")
-        if self.pedal_tormoz == 'да':
-            print(self.name, " затормазила")
+        if self.dveri_on == True and self.dvigatel == True and self.pedal_dvish == True:
+            self.pedal_tormoz = True
+            print("\nВы затормозили")
+
+        else:
+
+
+            if self.dvigatel == False and self.pedal_dvish == False:
+                print("Вы не можете затормозить из - за того что вы не завели машину и вы не едете")
+                self.pedal_tormoz = False
+
+
+            elif self.dveri_on == False and self.dvigatel == False and self.pedal_dvish == False:
+                print("Вы не можете затормозить из - за того что вы не вошли в машину ,не завели ее и вы не едете")
+                self.pedal_tormoz = False
+
+
+
+
 
 
 
 
     def ostanovka_dvigately(self):
-        self.dvig_off = input("Вы хотите остановить двигатель да/нет?")
-        if self.dvig_off == 'да':
-            print("двигатель машины", self.name, " остановлен")
+        if self.dvigatel == True and self.dveri_on == True:
+            self.dvig_off = False
+            print("\nДвигатель остановлен")
+
+        else:
+            if self.dvigatel == False:
+                print("Вы не можете остановить двигатель из - за того что двигатель не включен")
+                self.dvig_off = True
+
+            elif self.dvigatel == False and self.dveri_on == False:
+                print("Вы не можете остановить двигатель из - за того что вы не вошли в машину и двигатель не включен")
+                self.dvig_off = False
 
 
 
 
 
     def fari(self):
-        self.fari_on = input("Вы хотите включить фары?")
-        if self.fari_on == "да":
-            print("Ваши фары включены")
+        if self.dveri_on == True and self.dvigatel == True:
+            self.fari_on = True
+            print("\nФары включены")
 
         else:
-            print("Ну и не включайте")
+            if self.dvigatel == False:
+                print("Вы не можете включить фары из - за того что двигатель не включен")
+                self.fari_on = False
+
+            elif self.dvigatel == False and self.dveri_on == False:
+                print("Вы не можете включить фары из - за того что вы не вошли в машину и не включили двигатель")
+                self.fari_on = False
+
+
+            elif self.fari_on == True:
+                print("Фары уже включены")
+                self.fari_on = False
+
+
+
+
+
+
+
+
+    def fari2(self):
+        if self.dveri_on == True and self.dvigatel == True:
+            self.fari_off = False
+            print("\nФары отключены")
+
+        else:
+            if self.dvigatel == False:
+                print("Вы не можете отключить  фары из - за того что двигатель не включен")
+                self.fari_off = True
+
+            elif self.dvigatel == False and self.fari_on == False:
+                print("Вы не можете отключить  фары из - за того что двигатель не включен и а фары не горят")
+                self.fari_off = True
+
+
+
+            elif self.dvigatel == False and self.dveri_on == False and self.fari_on == False:
+                print("Вы не можете отключить фары из - за того что вы не вошли в машину , не включили двигатель и фары не горят")
+                self.fari_off = True
+
+
+            elif self.fari_off == False:
+                print("Фары уже отключены")
 
 
 
 
 
     def dveri(self):
-        self.dveri_on = input("Вы хотите закрыть или открыть двери да/нет?")
-        if self.dveri_on == "да":
-            print("Ваши двери открыты ")
+        if self.dveri_on == False:
+            self.dveri_on = True
+            print("\nДвери открыты")
 
         else:
-            print("ну и не открывайте")
+            if self.dveri_on == True:
+                print("Двери уже открыты")
+                self.dveri_on = False
+
+
+
+
+
+
+
+    def dveri2(self):
+        if self.dveri_on == True:
+            self.dveri_off = False
+            print("\nДвери закрыты")
+
+        else:
+            if self.dveri_off == False :
+                print("Двери уже закрыты")
+                self.dveri_off = True
+
+
 
 
 
@@ -90,19 +187,21 @@ def main():
     car = Car(car_name)
 
     choice = None
-    while choice != 7:
+    while choice != 9:
         print("\nФункционал машины:"
               + "\n\t1.Зажигание"
               + "\n\t2.Езда"
               + "\n\t3.Тормоз"
               + "\n\t4.Остановка двигателя"
               + "\n\t5.Включение фар"
-              + "\n\t6.Открытие и закрытие дверей"
-              + "\n\t7.Выход\n\n")
+              + "\n\t6.Выключение фар"
+              + "\n\t7.Открытие дверей"
+              + "\n\t8.Закрытие дверей"
+              + "\n\t9.Выход\n\n")
 
         choice = input("Ваш выбор:")
 
-        if choice == '7':
+        if choice == '9':
             print("Досвидание")
 
         elif choice == '1':
@@ -121,10 +220,14 @@ def main():
             car.fari()
 
         elif choice == '6':
-            car.dveri()
+            car.fari2()
 
         elif choice == '7':
-            print("Досвидание")
+            car.dveri()
+
+        elif choice == '8':
+            car.dveri2()
+
 
 
 main()
