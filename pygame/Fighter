@@ -1,0 +1,63 @@
+import pygame
+
+SIZE = (1450, 770)
+
+window = pygame.display.set_mode(SIZE)
+pygame.display.set_caption("Fighters")
+
+screen = pygame.image.load("images/fon.png").convert()
+screen = pygame.transform.scale(screen, (SIZE))
+
+bird = pygame.image.load("images/bird.png").convert()
+bird = pygame.transform.scale(bird, (70, 70))
+birdq = bird
+
+
+birdleft = pygame.image.load("images/birdleft.png").convert()
+birdleft = pygame.transform.scale(birdleft, (70, 70))
+birdw = birdleft
+
+bird_right = True
+bird_x = 0
+bird_y = 0
+
+birdleft_left = True
+birdleft_x = 1470
+birdleft_y = 0
+
+
+
+done = True
+while done:
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            done = False
+
+
+    if bird_right == True:
+        bird_x += 1
+        if bird_x > 1500:
+            bird_right = False
+
+
+
+    else:
+        bird = birdw
+        bird_x -=1
+        if bird_x < -70:
+            bird = birdq
+            bird_right = True
+
+
+
+
+
+
+
+
+
+
+
+    screen.blit(bird, (bird_x, bird_y))
+    window.blit(screen, (0, 0))
+    pygame.display.flip()
