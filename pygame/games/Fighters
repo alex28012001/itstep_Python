@@ -20,7 +20,7 @@ screen_fake = pygame.Surface(SIZE)
 
 
 
-"""создание птицы"""
+"""создание обектов"""
 bird = pygame.image.load("images/bird.png").convert_alpha()
 bird = pygame.transform.scale(bird, (70, 70))
 birdq = bird
@@ -30,32 +30,63 @@ birdleft = pygame.transform.scale(birdleft, (70, 70))
 birdw = birdleft
 
 
+birdnew1 = pygame.image.load("images/bird.png").convert_alpha()
+birdnew1 = pygame.transform.scale(birdnew1, (70, 70))
+birdt = birdnew1
 
-"""координаты птицы"""
+
+fighter = pygame.image.load("images/fighter.png").convert_alpha()
+fighter = pygame.transform.scale(fighter, (200, 200))
+
+
+
+
+
+
+"""координаты птиц"""
 bird_right = True
 bird_down = True
 bird_x = 0
 bird_y = 0
 
+birdnew1_right = True
+birdnew1_down = True
+birdnew1_x = -600
+birdnew1_y = 80
 
-birdleft_left = True
-birdleft_down = True
-birdleft_x = 1470
-birdleft_y = 0
+
+"""координаты бойца"""
+fighter_x = 70
+fighter_y = 517
 
 
 
 
 
 """обработчик событий"""
+
 done = True
+pygame.key.set_repeat(1, 1)
 while done:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             done = False
 
+        """Передвежение fighter"""
+        if e.type == pygame.KEYDOWN:
 
-    """Передвежение птицы по оси X"""
+            if e.key == pygame.K_RIGHT:
+                if fighter_x < 1325:
+                    fighter_x += 1
+
+            if e.key == pygame.K_LEFT:
+                if fighter_x > -57:
+                    fighter_x -= 1
+
+
+
+
+    """Передвежение 1 птицы по оси X"""
     if bird_right == True:
         bird_x += 0.4
         if bird_x > 1500:
@@ -70,7 +101,7 @@ while done:
             bird_right = True
 
 
-    """Передвежение птицы по оси y"""
+    """Передвежение 1 птицы по оси y"""
     if bird_down == True:
         bird_y += 0.1
         if bird_y > 70:
@@ -82,7 +113,40 @@ while done:
         if bird_y < 20:
             bird_down = True
 
-    """задивка фейкового холста"""
+
+
+
+
+    """Передвежение 2 птицы по оси X"""
+    if birdnew1_right == True:
+        birdnew1_x += 0.4
+        if birdnew1_x > 1500:
+            birdnew1_right = False
+
+
+    else:
+        birdnew1 = birdw
+        birdnew1_x -= 0.4
+        if birdnew1_x < -70:
+            birdnew1 = birdt
+            birdnew1_right = True
+
+
+    """Передвежение 2 птицы по оси y"""
+    if birdnew1_down == True:
+        birdnew1_y += 0.1
+        if birdnew1_y > 150:
+            birdnew1_down = False
+
+
+    else:
+        birdnew1_y -= 0.1
+        if birdnew1_y < 80:
+            birdnew1_down = True
+
+
+
+    """заливка фейкового холста"""
     screen_fake.fill((50, 50, 50))
 
 
@@ -94,7 +158,9 @@ while done:
 
     """отоброжение обьектов"""
     screen_fake.blit(screen, (0, 0))
+    screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
+    screen_fake.blit(birdnew1, (birdnew1_x, birdnew1_y))
 
 
     """отображение рабочей поверхности на экран"""
