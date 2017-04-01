@@ -1,32 +1,53 @@
 import pygame
 
+"""размер окна"""
 SIZE = (1450, 770)
 
+
+
+"""создание окна"""
 window = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Fighters")
 
+"""холст"""
 screen = pygame.image.load("images/fon.png").convert()
 screen = pygame.transform.scale(screen, (SIZE))
 
-bird = pygame.image.load("images/bird.png").convert()
+"""холст фейк"""
+screen_fake = pygame.Surface(SIZE)
+
+
+
+
+
+"""создание птицы"""
+bird = pygame.image.load("images/bird.png").convert_alpha()
 bird = pygame.transform.scale(bird, (70, 70))
 birdq = bird
 
-
-birdleft = pygame.image.load("images/birdleft.png").convert()
+birdleft = pygame.image.load("images/birdleft.png").convert_alpha()
 birdleft = pygame.transform.scale(birdleft, (70, 70))
 birdw = birdleft
 
+
+
+"""координаты птицы"""
 bird_right = True
+bird_down = True
 bird_x = 0
 bird_y = 0
 
+
 birdleft_left = True
+birdleft_down = True
 birdleft_x = 1470
 birdleft_y = 0
 
 
 
+
+
+"""обработчик событий"""
 done = True
 while done:
     for e in pygame.event.get():
@@ -34,21 +55,35 @@ while done:
             done = False
 
 
+    """Передвежение птицы по оси X"""
     if bird_right == True:
-        bird_x += 1
+        bird_x += 0.4
         if bird_x > 1500:
             bird_right = False
 
 
-
     else:
         bird = birdw
-        bird_x -=1
+        bird_x -= 0.4
         if bird_x < -70:
             bird = birdq
             bird_right = True
 
 
+    """Передвежение птицы по оси y"""
+    if bird_down == True:
+        bird_y += 0.1
+        if bird_y > 70:
+            bird_down = False
+
+
+    else:
+        bird_y -= 0.1
+        if bird_y < 20:
+            bird_down = True
+
+    """задивка фейкового холста"""
+    screen_fake.fill((50, 50, 50))
 
 
 
@@ -57,7 +92,11 @@ while done:
 
 
 
+    """отоброжение обьектов"""
+    screen_fake.blit(screen, (0, 0))
+    screen_fake.blit(bird, (bird_x, bird_y))
 
-    screen.blit(bird, (bird_x, bird_y))
-    window.blit(screen, (0, 0))
+
+    """отображение рабочей поверхности на экран"""
+    window.blit(screen_fake, (0, 0))
     pygame.display.flip()
