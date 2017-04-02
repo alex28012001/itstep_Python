@@ -1,4 +1,6 @@
 import pygame
+from pygame import mixer
+
 
 """размер окна"""
 SIZE = (1450, 770)
@@ -35,9 +37,26 @@ birdnew1 = pygame.transform.scale(birdnew1, (70, 70))
 birdt = birdnew1
 
 
+"""Fighter"""
 fighter = pygame.image.load("images/fighter.png").convert_alpha()
 fighter = pygame.transform.scale(fighter, (200, 200))
+fighter_copy = fighter
 
+fighter_down = pygame.image.load("images/fighter_down.png").convert_alpha()
+fighter_down = pygame.transform.scale(fighter_down, (200, 200))
+fighter_down_copy = fighter_down
+
+fighter_left = pygame.image.load("images/fighter_left.png").convert_alpha()
+fighter_left = pygame.transform.scale(fighter_left, (200, 200))
+fighter_left_copy = fighter_left
+
+fighter_right = pygame.image.load("images/fighter_right.png").convert_alpha()
+fighter_right = pygame.transform.scale(fighter_right, (200, 200))
+fighter_right_copy = fighter_right
+
+fighter_up = pygame.image.load("images/fighter_up.png").convert_alpha()
+fighter_up = pygame.transform.scale(fighter_up, (200, 200))
+fighter_up_copy = fighter_up
 
 
 
@@ -56,6 +75,10 @@ birdnew1_y = 80
 
 
 """координаты бойца"""
+fighter_right = False
+fighter_left = False
+fighterdown = False
+fighter_up = False
 fighter_x = 70
 fighter_y = 517
 
@@ -63,25 +86,79 @@ fighter_y = 517
 
 
 
-"""обработчик событий"""
+"""Фоновая музыка"""
+mixer.pre_init(44100, -16, 1, 512)
+mixer.init()
+sound = mixer.Sound("sounds/metro_2033.ogg")
+sound.play(-1)
 
+
+
+
+
+
+"""обработчик событий"""
 done = True
-pygame.key.set_repeat(1, 1)
 while done:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             done = False
 
-        """Передвежение fighter"""
         if e.type == pygame.KEYDOWN:
 
-            if e.key == pygame.K_RIGHT:
-                if fighter_x < 1325:
-                    fighter_x += 1
+            if e.key == pygame.K_d:
+                fighter_right = True
 
-            if e.key == pygame.K_LEFT:
-                if fighter_x > -57:
-                    fighter_x -= 1
+            if e.key == pygame.K_a:
+                fighter_left = True
+
+            if e.key == pygame.K_s:
+                fighterdown = True
+
+            if e.key == pygame.K_SPACE:
+                fighter_up = True
+
+
+        if e.type == pygame.KEYUP:
+
+            if e.key == pygame.K_d:
+                fighter_right = False
+                fighter = fighter_copy
+
+            if e.key == pygame.K_a:
+                fighter_left = False
+                fighter = fighter_copy
+
+            if e.key == pygame.K_s:
+                fighterdown = False
+                fighter = fighter_copy
+
+            if e.key == pygame.K_SPACE:
+                fighter_up = False
+                fighter = fighter_copy
+
+
+
+
+    if fighter_right == True:
+        fighter = fighter_right_copy
+        if fighter_x < 1325:
+            fighter_x += 1
+
+    if fighter_left == True:
+        fighter = fighter_left_copy
+        if fighter_x > -57:
+            fighter_x -= 1
+
+    if fighterdown == True:
+        fighter = fighter_down_copy
+
+    if fighter_up == True:
+        fighter = fighter_up_copy
+        fighter_y = 417
+    else:
+        fighter_y = 517
+
 
 
 
