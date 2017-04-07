@@ -329,6 +329,8 @@ screen_fake = pygame.Surface(SIZE)
 
 
 
+
+
 """создание обектов"""
 bird = pygame.image.load("images/bird.png").convert_alpha()
 bird = pygame.transform.scale(bird, (70, 70))
@@ -342,6 +344,8 @@ birdw = birdleft
 birdnew1 = pygame.image.load("images/bird.png").convert_alpha()
 birdnew1 = pygame.transform.scale(birdnew1, (70, 70))
 birdt = birdnew1
+
+
 
 
 
@@ -365,6 +369,7 @@ fighter_right_copy = fighter_right
 fighter_up = pygame.image.load("images/fighter_up.png").convert_alpha()
 fighter_up_copy = fighter_up
 
+"""атаки Fighters"""
 fighter_atack_stay = pygame.image.load("images/fighter_atack_stay.png").convert_alpha()
 fighter_atack_stay_copy = fighter_atack_stay
 
@@ -373,6 +378,11 @@ fighter_atack_stay_2_copy = fighter_atack_stay_2
 
 fighter_right_atack = pygame.image.load("images/fighter_right_atack.png").convert_alpha()
 fighter_right_atack_copy = fighter_right_atack
+
+fighter_left_atack = pygame.image.load("images/fighter_left_atack.png").convert_alpha()
+fighter_left_atack_copy = fighter_left_atack
+
+
 
 
 
@@ -401,8 +411,36 @@ fighter_up = False
 fighter_atack_1 = False
 fighter_atack_2 = False
 fighter_right_atacks = False
+fighter_left_atacks = False
 fighter_x = 70
 fighter_y = 545
+
+
+
+
+
+
+
+
+"""функция для столкновения обьектов"""
+def Intersect(x1, x2, y1, y2):
+    if (x1 > x2-70) and (x1 < x2 + 200) and (y1 > y2-70) and (y1 < y2+30):
+        return 1
+    else:
+        return 0
+
+
+
+
+
+
+
+"""Бот"""
+bot = pygame.image.load("images/bot.png").convert_alpha()
+
+"""координаты бота"""
+bot_x = 1100
+bot_y = 520
 
 
 
@@ -416,6 +454,8 @@ mixer.pre_init(44100, -16, 1, 512)
 mixer.init()
 sound = mixer.Sound("sounds/metro_2033.ogg")
 sound.play(-1)
+
+
 
 
 
@@ -440,8 +480,6 @@ while done:
             if e.button == 3:
                 fighter_atack_1 = True
 
-            if e.button == 2:
-                fighter_right_atacks = True
 
             if e.button == 1:
                 fighter_atack_2 = True
@@ -453,12 +491,6 @@ while done:
             if e.button == 3:
                 fighter_atack_1 = False
                 fighter = fighter_copy
-
-
-            if e.button == 2:
-                fighter_right_atacks = False
-                fighter = fighter_copy
-
 
 
             if e.button == 1:
@@ -484,6 +516,15 @@ while done:
             if e.key == pygame.K_SPACE:
                 fighter_up = True
 
+            if e.key == pygame.K_e:
+                fighter_right_atacks = True
+
+            if e.key == pygame.K_q:
+                fighter_left_atacks = True
+
+
+
+
 
 
         """событие отжатие клавиатуры"""
@@ -505,6 +546,16 @@ while done:
                 fighter_up = False
                 fighter_y = 545
                 fighter = fighter_copy
+
+            if e.key == pygame.K_e:
+                fighter_right_atacks = False
+                fighter = fighter_copy
+
+            if e.key == pygame.K_q:
+                fighter_left_atacks = False
+                fighter = fighter_copy
+
+
 
 
 
@@ -532,7 +583,7 @@ while done:
 
     if fighter_up == True:
         fighter = fighter_up_copy
-        if fighter_y > 150:
+        if fighter_y > 50:
             fighter_y -= JUMP_SPEED
 
         else:
@@ -552,6 +603,11 @@ while done:
 
     if fighter_right_atacks == True:
         fighter = fighter_right_atack_copy
+
+    if fighter_left_atacks == True:
+        fighter = fighter_left_atack_copy
+
+
 
 
 
@@ -632,6 +688,11 @@ while done:
 
 
 
+    """столкновение c ботом"""
+    if Intersect(fighter_x, bot_x, fighter_y, bot_y) == True:
+
+        fighter_right = False
+        fighter_left = False
 
 
 
@@ -640,6 +701,7 @@ while done:
 
     """отоброжение обьектов"""
     screen_fake.blit(screen, (0, 0))
+    screen_fake.blit(bot, (bot_x, bot_y))
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
     screen_fake.blit(birdnew1, (birdnew1_x, birdnew1_y))
