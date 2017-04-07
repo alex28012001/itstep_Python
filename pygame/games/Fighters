@@ -300,6 +300,14 @@ while done:
 from pygame import mixer
 import random
 
+SPEED_FIGHTER = 1
+SPEED_BIRD_X = 0.4
+SPEED_BIRD_Y = 0.1
+JUMP_SPEED = 2.5
+
+
+
+
 
 """размер окна"""
 SIZE = (1450, 770)
@@ -321,9 +329,6 @@ screen_fake = pygame.Surface(SIZE)
 
 
 
-
-
-
 """создание обектов"""
 bird = pygame.image.load("images/bird.png").convert_alpha()
 bird = pygame.transform.scale(bird, (70, 70))
@@ -337,28 +342,6 @@ birdw = birdleft
 birdnew1 = pygame.image.load("images/bird.png").convert_alpha()
 birdnew1 = pygame.transform.scale(birdnew1, (70, 70))
 birdt = birdnew1
-
-
-
-
-
-
-
-"""создание бота"""
-
-
-bot = pygame.image.load("images/fighter.png").convert_alpha()
-
-"""координаты бота"""
-bot_x = 1300
-bot_y = 545
-
-"""передвежение бота влево"""
-a = random.randint(0,2)
-bot_left = a
-
-
-
 
 
 
@@ -448,40 +431,6 @@ while done:
         if e.type == pygame.QUIT:
             done = False
 
-    if bot_left == 1:
-        bot_x += 2
-
-        if bot_x > 1400:
-            bot_left = 0
-    else:
-        bot_x -= 2
-        if bot_x < 0:
-            bot_left = 1
-
-
-
-        """
-        if e.type == pygame.KEYDOWN and  pygame.MOUSEBUTTONDOWN:
-            if e.key == pygame.K_d and e.button == 2:
-                fighter_right_atacks = True
-
-
-        if e.type == pygame.KEYUP and pygame.MOUSEBUTTONUP:
-            if e.key == pygame.K_d and e.button == 2:
-                fighter_right_atacks = False
-                fighter = fighter_copy
-
-
-
-        if e.type == pygame.MOUSEBUTTONDOWN:
-            if e.button == 2:
-                fighter_right_atacks = True
-
-        if e.type == pygame.MOUSEBUTTONUP:
-            if e.button == 2:
-                fighter_right_atacks = False
-                fighter = fighter_copy
-                """
 
 
 
@@ -490,6 +439,9 @@ while done:
         if e.type == pygame.MOUSEBUTTONDOWN:
             if e.button == 3:
                 fighter_atack_1 = True
+
+            if e.button == 2:
+                fighter_right_atacks = True
 
             if e.button == 1:
                 fighter_atack_2 = True
@@ -501,6 +453,13 @@ while done:
             if e.button == 3:
                 fighter_atack_1 = False
                 fighter = fighter_copy
+
+
+            if e.button == 2:
+                fighter_right_atacks = False
+                fighter = fighter_copy
+
+
 
             if e.button == 1:
                 fighter_atack_2 = False
@@ -558,13 +517,13 @@ while done:
     if fighter_right == True:
         fighter = fighter_right_copy
         if fighter_x < 1380:
-            fighter_x += 2
+            fighter_x += SPEED_FIGHTER
 
 
     if fighter_left == True:
         fighter = fighter_left_copy
         if fighter_x > 0:
-            fighter_x -= 2
+            fighter_x -= SPEED_FIGHTER
 
 
     if fighterdown == True:
@@ -573,8 +532,8 @@ while done:
 
     if fighter_up == True:
         fighter = fighter_up_copy
-        if fighter_y > 350:
-            fighter_y -= 7
+        if fighter_y > 150:
+            fighter_y -= JUMP_SPEED
 
         else:
             fighter_y = 517
@@ -605,14 +564,14 @@ while done:
 
     """Передвежение 1 птицы по оси X"""
     if bird_right == True:
-        bird_x += 1
+        bird_x += SPEED_BIRD_X
         if bird_x > 1500:
             bird_right = False
 
 
     else:
         bird = birdw
-        bird_x -= 1
+        bird_x -= SPEED_BIRD_X
         if bird_x < -70:
             bird = birdq
             bird_right = True
@@ -620,13 +579,13 @@ while done:
 
     """Передвежение 1 птицы по оси y"""
     if bird_down == True:
-        bird_y += 0.4
+        bird_y += SPEED_BIRD_Y
         if bird_y > 70:
             bird_down = False
 
 
     else:
-        bird_y -= 0.4
+        bird_y -= SPEED_BIRD_Y
         if bird_y < 20:
             bird_down = True
 
@@ -640,14 +599,14 @@ while done:
 
     """Передвежение 2 птицы по оси X"""
     if birdnew1_right == True:
-        birdnew1_x += 1
+        birdnew1_x += SPEED_BIRD_X
         if birdnew1_x > 1500:
             birdnew1_right = False
 
 
     else:
         birdnew1 = birdw
-        birdnew1_x -= 1
+        birdnew1_x -= SPEED_BIRD_X
         if birdnew1_x < -70:
             birdnew1 = birdt
             birdnew1_right = True
@@ -655,13 +614,13 @@ while done:
 
     """Передвежение 2 птицы по оси y"""
     if birdnew1_down == True:
-        birdnew1_y += 0.4
+        birdnew1_y += SPEED_BIRD_Y
         if birdnew1_y > 150:
             birdnew1_down = False
 
 
     else:
-        birdnew1_y -= 0.4
+        birdnew1_y -= SPEED_BIRD_Y
         if birdnew1_y < 80:
             birdnew1_down = True
 
@@ -684,8 +643,6 @@ while done:
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
     screen_fake.blit(birdnew1, (birdnew1_x, birdnew1_y))
-    screen_fake.blit(bot, (bot_x, bot_y))
-
 
     """отображение рабочей поверхности на экран"""
     window.blit(screen_fake, (0, 0))
