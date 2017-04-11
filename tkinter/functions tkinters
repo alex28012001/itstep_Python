@@ -1,0 +1,17 @@
+from tkinter import * - иморт tkinter
+
+root = Tk() - создание окна
+
+root.title("1 programm") - название окна
+
+root.geometry("500x500") - размер окна
+
+but = Button(root) - создаём кнопку
+
+but("Text") = "Печать" - название кнопки
+
+but.bind("<Button-1>",printer) - когда нажимаем на кпопку левой кнопкой мышью, делаеться функция printer
+
+but.pack() - размещение кнопки
+
+root.mainloop() - ожидания события
