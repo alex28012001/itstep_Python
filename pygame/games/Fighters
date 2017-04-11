@@ -1,6 +1,10 @@
-import pygame
-from pygame import mixer
 
+    ---------------------------------------------------------------------------------------------------------------------------------
+    
+    
+    
+ import pygame
+from pygame import mixer
 
 
 SPEED_FIGHTER = 2
@@ -31,7 +35,9 @@ screen = pygame.transform.scale(screen, (SIZE))
 screen_fake = pygame.Surface(SIZE)
 
 
-
+"""шрифты"""
+pygame.font.init()
+font = pygame.font.SysFont("Candara", 45)
 
 
 
@@ -153,7 +159,6 @@ bot_y = 520
 
 
 
-
 """функция для столкновения обьектов"""
 def Intersect(x1, x2, y1, y2):
     if (x1 > x2-135) and (x1 < x2 + 159) and (y1 > y2- 140) and (y1 < y2+ 185):
@@ -174,7 +179,6 @@ mixer.pre_init(44100, -16, 1, 512)
 mixer.init()
 sound = mixer.Sound("sounds/metro_2033.ogg")
 sound.play(-1)
-
 
 
 
@@ -499,6 +503,7 @@ while done:
 
     """отоброжение обьектов"""
     screen_fake.blit(screen, (0, 0))
+    screen_fake.blit(font.render('Здоровье: ', 5, (117, 74, 103)), (30, 10))
     screen_fake.blit(bot, (bot_x, bot_y))
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
@@ -508,3 +513,4 @@ while done:
     """отображение рабочей поверхности на экран"""
     window.blit(screen_fake, (0, 0))
     pygame.display.flip()
+
