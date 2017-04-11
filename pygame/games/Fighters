@@ -87,8 +87,27 @@ fighter_right_atack_copy = fighter_right_atack
 fighter_left_atack = pygame.image.load("images/fighter_left_atack.png").convert_alpha()
 fighter_left_atack_copy = fighter_left_atack
 
+
+
+
+
+
+
+
+
 """БОТ"""
 bot = pygame.image.load("images/bot.png").convert_alpha()
+bot_copy = bot
+
+
+"""Атаки Бота"""
+bot_atack_right = pygame.image.load("images/bot_atack_right.png").convert_alpha()
+bot_atack_right_copy = bot_atack_right
+
+bot_atack_left = pygame.image.load("images/bot_atack_left.png").convert_alpha()
+bot_atack_left_copy = bot_atack_left
+
+
 
 
 
@@ -121,9 +140,14 @@ fighter_left_atacks = False
 fighter_x = 1300
 fighter_y = 545
 
+
 """координаты бота"""
+bot_atack1 = False
+bot_atack2 = False
 bot_x = 600
 bot_y = 520
+
+
 
 
 
@@ -418,11 +442,54 @@ while done:
     """столкновение c ботом"""
     if Intersect(fighter_x, bot_x, fighter_y, bot_y) == True:
 
+
+        """право(бот)"""
         if fighter_x > bot_x:
             fighter_left = False
+            bot_atack1 = True
+            bot_atack2 = False
 
+
+
+            """атака вправо"""
+            if bot_atack1 == True:
+                bot = bot_atack_right
+
+            else:
+                bot = bot_copy
+
+
+
+
+
+        """лево(бот)"""
         if fighter_x < bot_x:
             fighter_right = False
+            bot_atack2 = True
+            bot_atack1 = False
+
+
+
+            """атака влево"""
+            if bot_atack2 == True:
+                bot = bot_atack_left
+
+            else:
+                bot = bot_copy
+
+
+
+
+
+    else:
+         bot = bot_copy
+
+
+
+
+
+
+
 
 
 
@@ -441,14 +508,3 @@ while done:
     """отображение рабочей поверхности на экран"""
     window.blit(screen_fake, (0, 0))
     pygame.display.flip()
-
-
-
-
-
--------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
