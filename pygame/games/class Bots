@@ -1,48 +1,110 @@
-import pygame
 
-SPEED_BOT = 1
+SPEED_BOT = 2
 OTSTUP = 100
 bot_right = bot_left = False
+
+
 class Bots(object):
 
 
-    def __init__(self, bot_x, bot_y, fighter_x, fighter_y):
+
+    def __init__(self, bot_x, bot_y, fighter_x, fighter_y, image, bot_atack_right, bot_atack_left):
         self.fighter_x = fighter_x
         self.fighter_y = fighter_y
         self.bot_x = bot_x
         self.bot_y = bot_y
-        self.image = pygame.image.load("images/bot.png").convert_alpha()
+        self.image = image
+        self.copy = image
+        self.bot_atack_right = bot_atack_right
+        self.bot_atack_left = bot_atack_left
         self.SPEED_BOT = SPEED_BOT
         self.OTSTUP = OTSTUP
 
 
 
-    def update(self):
-        bot_right = bot_left = False
 
+
+
+    def update(self, fighter_x, fighter_y):
+
+        self.fighter_x = fighter_x
+        self.fighter_y = fighter_y
 
         """Передвежение бота по оси x"""
-
         if self.fighter_x < self.bot_x:
-            bot_right = True
+            if self.bot_x > self.fighter_x + OTSTUP:
+                self.bot_x -= SPEED_BOT
+
+        if fighter_x > self.bot_x:
+            if self.bot_x < self.fighter_x - OTSTUP:
+                self.bot_x += SPEED_BOT
 
 
-        if self.fighter_x > self.bot_x:
-            bot_left = True
 
 
 
 
 
-        if bot_right == True:
-            if self.bot_x > self.fighter_x + self.OTSTUP:
-                self.bot_x -= self.SPEED_BOT
 
-        if bot_left == True:
-            if self.bot_x < self.fighter_x - self.OTSTUP:
-                self.bot_x += self.SPEED_BOT
+
+
+
+    def Intersect(x1, x2, y1, y2):
+        if (x1 > x2 - 135) and (x1 < x2 + 159) and (y1 > y2 - 140) and (y1 < y2 + 185):
+            return 1
+        else:
+            return 0
+
+
+
+
+    def Inserct_1(self,bots):
+        #столкновение c ботом
+        if (bots.Intersect(self.fighter_x, self.bot_x, self.fighter_y, self.bot_y)) == True:
+
+            """право(бот)"""
+            if  self.fighter_x > self.bot_x:
+                self.fighter_left = False
+                self.bot_atack1 = True
+                self.bot_atack2 = False
+
+                """атака вправо"""
+                if self.bot_atack1 == True:
+                    self.bot = self.bot_atack_right
+
+                else:
+                    self.bot = self.copy
+
+            """лево(бот)"""
+            if self.fighter_x < self.bot_x:
+                self.fighter_right = False
+                self.bot_atack2 = True
+                self.bot_atack1 = False
+
+                """атака влево"""
+                if self.bot_atack2 == True:
+                    self.bot = self.bot_atack_left
+
+                else:
+                    self.bot = self.copy
+
+
+
+
+        else:
+            self.bot = self.copy
+
+
+
+
+
+
+
+
 
 
     def draw(self, surf):
 
         surf.blit(self.image, (self.bot_x, self.bot_y))
+        
+        
