@@ -1,6 +1,6 @@
 
 SPEED_BOT = 1
-OTSTUP = 100
+OTSTUP = 80
 bot_right = bot_left = False
 
 
