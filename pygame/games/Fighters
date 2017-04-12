@@ -7,8 +7,10 @@ SPEED_FIGHTER = 2
 SPEED_BIRD_X = 0.4
 SPEED_BIRD_Y = 0.1
 JUMP_SPEED = 3.5
-HEALTH_FIGHTER = 100
-
+HEALTH_FIGHTER = 10000
+DAMAGE_FIGHTER = 3
+HEALTH_BOT = 100000
+DAMAGE_BOT = 10
 
 
 
@@ -32,7 +34,7 @@ screen_fake = pygame.Surface(SIZE)
 
 """шрифты"""
 pygame.font.init()
-font = pygame.font.SysFont("Candara", 45)
+font = pygame.font.SysFont("Candara", 25)
 
 
 
@@ -443,6 +445,7 @@ while done:
             """атака вправо"""
             if bot_atack1 == True:
                 bot = bot_atack_right
+                HEALTH_FIGHTER -= DAMAGE_FIGHTER
 
             else:
                 bot = bot_copy
@@ -461,6 +464,7 @@ while done:
             """атака влево"""
             if bot_atack2 == True:
                 bot = bot_atack_left
+                HEALTH_FIGHTER -= DAMAGE_FIGHTER
 
             else:
                 bot = bot_copy
@@ -482,7 +486,8 @@ while done:
 
     """отоброжение обьектов"""
     screen_fake.blit(screen, (0, 0))
-    screen_fake.blit(font.render('Health: '+str(HEALTH_FIGHTER), 5, (117, 74, 103)), (45, 20))
+    screen_fake.blit(font.render('Health Fighter: '+str(HEALTH_FIGHTER), 5, (117, 74, 103)), (45, 20))
+    screen_fake.blit(font.render('Health Bot: ' + str(HEALTH_BOT), 5, (117, 74, 103)), (45, 50))
     bot1.draw(screen_fake)
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
