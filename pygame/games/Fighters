@@ -8,9 +8,10 @@ SPEED_BIRD_X = 0.4
 SPEED_BIRD_Y = 0.1
 JUMP_SPEED = 3.5
 HEALTH_FIGHTER = 10000
-DAMAGE_FIGHTER = 3
+DAMAGE_FIGHTER = 1
 HEALTH_BOT = 100000
-DAMAGE_BOT = 10
+DAMAGE_BOT_PROST = 10
+DAMAGE_BOT_SIL = 100
 
 
 
@@ -442,13 +443,23 @@ while done:
             bot_atack1 = True
             bot_atack2 = False
 
-            """атака вправо"""
+            """атака вправо от бота"""
             if bot_atack1 == True:
                 bot = bot_atack_right
                 HEALTH_FIGHTER -= DAMAGE_FIGHTER
 
             else:
                 bot = bot_copy
+
+            """простая атака влево от fighter"""
+            if fighter_atack_2:
+                HEALTH_BOT -= DAMAGE_BOT_PROST
+
+            """сильная атака от fighter"""
+            if fighter_left_atacks == True:
+                HEALTH_BOT -= DAMAGE_BOT_SIL
+
+
 
 
 
@@ -461,13 +472,29 @@ while done:
             bot_atack2 = True
             bot_atack1 = False
 
-            """атака влево"""
+            """атака влево от бота"""
             if bot_atack2 == True:
                 bot = bot_atack_left
                 HEALTH_FIGHTER -= DAMAGE_FIGHTER
 
             else:
                 bot = bot_copy
+
+
+
+            """простая атака вправо от fighter"""
+            if fighter_atack_1:
+                HEALTH_BOT -= DAMAGE_BOT_PROST
+
+            """сильная атака от fighter"""
+            if fighter_right_atacks == True:
+                HEALTH_BOT -= DAMAGE_BOT_SIL
+
+
+
+
+
+
 
 
     else:
