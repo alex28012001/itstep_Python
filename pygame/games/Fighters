@@ -536,11 +536,10 @@ import pygame
 from pygame import mixer
 from Bot import Bots
 
-
 SPEED_FIGHTER = 2
 SPEED_BIRD_X = 0.4
 SPEED_BIRD_Y = 0.1
-JUMP_POWER = 10
+JUMP_POWER = 3.5
 HEALTH_FIGHTER = 10000
 DAMAGE_FIGHTER = 1
 HEALTH_BOT = 100000
@@ -550,14 +549,15 @@ GRAVITY = 0.4
 
 
 
+
+
 """размер окна"""
 SIZE = (1450, 770)
-
-
 
 """создание окна"""
 window = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Fighters")
+
 
 """холст"""
 screen = pygame.image.load("images/fon.png").convert()
@@ -568,9 +568,17 @@ screen_fake = pygame.Surface(SIZE)
 
 
 
+
+
+
+
 """шрифты"""
 pygame.font.init()
 font = pygame.font.SysFont("Candara", 25)
+
+
+
+
 
 
 
@@ -584,15 +592,9 @@ birdleft = pygame.image.load("images/birdleft.png").convert_alpha()
 birdleft = pygame.transform.scale(birdleft, (70, 70))
 birdw = birdleft
 
-
 birdnew1 = pygame.image.load("images/bird.png").convert_alpha()
 birdnew1 = pygame.transform.scale(birdnew1, (70, 70))
 birdt = birdnew1
-
-
-
-
-
 
 
 
@@ -612,6 +614,8 @@ fighter_right_copy = fighter_right
 fighter_up = pygame.image.load("images/fighter_up.png").convert_alpha()
 fighter_up_copy = fighter_up
 
+
+
 """атаки Fighters"""
 fighter_atack_stay = pygame.image.load("images/fighter_atack_stay.png").convert_alpha()
 fighter_atack_stay_copy = fighter_atack_stay
@@ -624,6 +628,9 @@ fighter_right_atack_copy = fighter_right_atack
 
 fighter_left_atack = pygame.image.load("images/fighter_left_atack.png").convert_alpha()
 fighter_left_atack_copy = fighter_left_atack
+
+
+
 
 """БОТ"""
 bot = pygame.image.load("images/bot.png").convert_alpha()
@@ -656,6 +663,9 @@ birdnew1_x = -600
 birdnew1_y = 80
 
 
+
+
+
 """координаты бойца"""
 fighter_right = False
 fighter_left = False
@@ -665,7 +675,7 @@ fighter_atack_1 = False
 fighter_atack_2 = False
 fighter_right_atacks = False
 fighter_left_atacks = False
-onGROUND = True
+onGROUND = False
 fighter_x = 70
 fighter_y = 545
 
@@ -677,6 +687,7 @@ fighter_y = 545
 bot_right = bot_left = False
 bot_atack1 = False
 bot_atack2 = False
+
 """1 БОТ"""
 bot1 = Bots(600, 520, fighter_x, fighter_y, bot, bot_atack_right, bot_atack_left)
 
@@ -684,15 +695,12 @@ bot1 = Bots(600, 520, fighter_x, fighter_y, bot, bot_atack_right, bot_atack_left
 
 
 
-
 """функция для столкновения обьектов"""
 def Intersect(x1, x2, y1, y2):
-    if (x1 > x2-135) and (x1 < x2 + 159) and (y1 > y2- 140) and (y1 < y2+ 185):
+    if (x1 > x2 - 135) and (x1 < x2 + 159) and (y1 > y2 - 140) and (y1 < y2 + 185):
         return 1
     else:
         return 0
-
-
 
 
 
@@ -722,12 +730,10 @@ while done:
 
 
 
-
         """событие нажатие на мыщку"""
         if e.type == pygame.MOUSEBUTTONDOWN:
             if e.button == 3:
                 fighter_atack_1 = True
-
 
             if e.button == 1:
                 fighter_atack_2 = True
@@ -739,7 +745,6 @@ while done:
             if e.button == 3:
                 fighter_atack_1 = False
                 fighter = fighter_copy
-
 
             if e.button == 1:
                 fighter_atack_2 = False
@@ -753,7 +758,7 @@ while done:
 
 
         """событие нажатия на клавиатуру"""
-        if e.type == pygame.KEYDOWN :
+        if e.type == pygame.KEYDOWN:
 
             if e.key == pygame.K_d:
                 fighter_right = True
@@ -772,10 +777,6 @@ while done:
 
             if e.key == pygame.K_q:
                 fighter_left_atacks = True
-
-
-
-
 
 
 
@@ -816,28 +817,29 @@ while done:
 
 
 
-
-
     """Условия передвежения Fighter"""
     if fighter_right == True:
         fighter = fighter_right_copy
         if fighter_x < 1350:
             fighter_x += SPEED_FIGHTER
 
-
     if fighter_left == True:
         fighter = fighter_left_copy
         if fighter_x > 0:
             fighter_x -= SPEED_FIGHTER
 
-
     if fighterdown == True:
         fighter = fighter_down_copy
 
 
+    """Прыжок"""
+    if fighter_up == True:
+        if onGROUND == True:
+            fighter_y = -JUMP_POWER
+
 
     """прыжок"""
-    """
+
     if fighter_up == True:
         fighter = fighter_up_copy
         if fighter_y > 50:
@@ -845,25 +847,6 @@ while done:
 
         else:
             fighter_y = 517
-            """
-
-    if fighter_y != 545:
-        onGROUND = False     
-
-
-
-    """Падение"""
-    if fighter_up == True:
-        fighter = fighter_up_copy
-        if onGROUND == True:
-            if fighter_y > 500:
-                fighter_y -= 1
-                
-            else:
-                if fighter_y < 545:
-                    fighter_y += 2
-                onGROUND = True
-
 
 
 
@@ -876,22 +859,14 @@ while done:
     if fighter_atack_1 == True:
         fighter = fighter_atack_stay_copy
 
-
     if fighter_atack_2 == True:
         fighter = fighter_atack_stay_2_copy
-
 
     if fighter_right_atacks == True:
         fighter = fighter_right_atack_copy
 
     if fighter_left_atacks == True:
         fighter = fighter_left_atack_copy
-
-
-
-
-
-
 
 
 
@@ -913,7 +888,6 @@ while done:
         if bird_x < -70:
             bird = birdq
             bird_right = True
-
 
     """Передвежение 1 птицы по оси y"""
     if bird_down == True:
@@ -950,7 +924,6 @@ while done:
             birdnew1 = birdt
             birdnew1_right = True
 
-
     """Передвежение 2 птицы по оси y"""
     if birdnew1_down == True:
         birdnew1_y += SPEED_BIRD_Y
@@ -969,25 +942,20 @@ while done:
 
 
 
-
-
-
-
-
     """Передвежение бота по оси x"""
     bot1.update(fighter_x, fighter_y, bot)
 
 
 
 
+
+
+
+
+
+
     """заливка фейкового холста"""
     screen_fake.fill((50, 50, 50))
-
-
-
-
-
-
 
     """столкновение c ботом"""
     if Intersect(fighter_x, bot1.bot_x, fighter_y, bot1.bot_y) == True:
@@ -1014,13 +982,6 @@ while done:
             if fighter_left_atacks == True:
                 HEALTH_BOT -= DAMAGE_BOT_SIL
 
-
-
-
-
-
-
-
         """лево(бот)"""
         if fighter_x < bot1.bot_x:
             fighter_right = False
@@ -1035,8 +996,6 @@ while done:
             else:
                 bot = bot_copy
 
-
-
             """простая атака вправо от fighter"""
             if fighter_atack_1:
                 HEALTH_BOT -= DAMAGE_BOT_PROST
@@ -1044,13 +1003,6 @@ while done:
             """сильная атака от fighter"""
             if fighter_right_atacks == True:
                 HEALTH_BOT -= DAMAGE_BOT_SIL
-
-
-
-
-
-
-
 
     else:
         bot = bot_copy
@@ -1060,21 +1012,14 @@ while done:
 
 
 
-
-
-
-
-
-
     """отоброжение обьектов"""
     screen_fake.blit(screen, (0, 0))
-    screen_fake.blit(font.render('Health Fighter: '+str(HEALTH_FIGHTER), 5, (117, 74, 103)), (45, 20))
+    screen_fake.blit(font.render('Health Fighter: ' + str(HEALTH_FIGHTER), 5, (117, 74, 103)), (45, 20))
     screen_fake.blit(font.render('Health Bot: ' + str(HEALTH_BOT), 5, (117, 74, 103)), (45, 50))
     bot1.draw(screen_fake)
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
     screen_fake.blit(birdnew1, (birdnew1_x, birdnew1_y))
-
 
     """отображение рабочей поверхности на экран"""
     window.blit(screen_fake, (0, 0))
