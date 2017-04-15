@@ -3,10 +3,10 @@ from pygame import mixer
 from Bot import Bots
 
 
-SPEED_FIGHTER = 2
-SPEED_BIRD_X = 0.4
-SPEED_BIRD_Y = 0.1
-JUMP_SPEED = 3.5
+SPEED_FIGHTER = 4
+SPEED_BIRD_X = 0.6
+SPEED_BIRD_Y = 0.2
+JUMP_SPEED = 5.5
 HEALTH_FIGHTER = 10000
 DAMAGE_FIGHTER = 1
 HEALTH_BOT = 100000
@@ -528,7 +528,6 @@ while done:
 
 
 
---------------------------------------------------------------------------------------------------------------------------------
 
 
 
