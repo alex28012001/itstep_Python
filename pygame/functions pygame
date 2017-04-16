@@ -210,16 +210,48 @@ pl = Platform()
   
  --------------------------------------------------------------------------------------------------------------------------------
 
-fighter_yvel - скорость падения
+fighter_yvel = 0   - скорость падения
 GRAVITY = 0.04 
 onGROUND - на земле или нет
 
-"""Падение"""
+
+ """Прыжок"""
+    if fighter_up == True:
+            onGROUND = True
+            fighter = fighter_up_copy
+            if fighter_y > 200:
+                for i in range(20):
+                    fighter_y -= 0.1            ----       Прыжок
+
+            else:
+                fighter_up = False
+                onGROUND = False
+
+    if onGROUND == True:
+        fighter_yvel = 0
+
+
+
+
+
+
+
+
+    """Падение"""
     if onGROUND == False:
-        fighter = fighter_copy 
-        if fighter_y < 545:              -- ---        Падение
-            fighter_yvel += GRAVITY
+        fighter = fighter_copy
+        if fighter_y < 545:
+            fighter_yvel += GRAVITY            -----   Падение
             fighter_y += fighter_yvel
+            
+            
+            
+            
+            
+            
+            
+            
+            
  
  
  
