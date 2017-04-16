@@ -208,7 +208,21 @@ pl = Platform()
        
     make_level(level, pl)      -      отрисовка уровня
   
-     
+ --------------------------------------------------------------------------------------------------------------------------------
+
+fighter_yvel - скорость падения
+GRAVITY = 0.04 
+onGROUND - на земле или нет
+
+"""Падение"""
+    if onGROUND == False:
+        fighter = fighter_copy 
+        if fighter_y < 545:              -- ---        Падение
+            fighter_yvel += GRAVITY
+            fighter_y += fighter_yvel
+ 
+ 
+ 
                         
         
         
