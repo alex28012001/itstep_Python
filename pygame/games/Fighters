@@ -3,17 +3,16 @@ from pygame import mixer
 from Bot import Bots
 
 
-SPEED_FIGHTER = 2
-SPEED_BIRD_X = 0.4
-SPEED_BIRD_Y = 0.1
-JUMP_SPEED = 3.5
+SPEED_FIGHTER = 5
+SPEED_BIRD_X = 0.6
+SPEED_BIRD_Y = 0.2
+JUMP_SPEED = 5.5
 HEALTH_FIGHTER = 10000
 DAMAGE_FIGHTER = 1
 HEALTH_BOT = 100000
 DAMAGE_BOT_PROST = 10
 DAMAGE_BOT_SIL = 100
-GRAVITY = 0.04
-
+GRAVITY = 0.09
 
 
 """размер окна"""
@@ -28,6 +27,7 @@ pygame.display.set_caption("Fighters")
 """холст"""
 screen = pygame.image.load("images/fon.png").convert()
 screen = pygame.transform.scale(screen, (SIZE))
+clock = pygame.time.Clock()
 
 """холст фейк"""
 screen_fake = pygame.Surface(SIZE)
@@ -37,6 +37,7 @@ screen_fake = pygame.Surface(SIZE)
 """шрифты"""
 pygame.font.init()
 font = pygame.font.SysFont("Candara", 25)
+font2 = pygame.font.SysFont("Candara", 17)
 
 
 
@@ -178,22 +179,20 @@ sound.play(-1)
 
 """обработчик событий"""
 done = True
-
 while done:
+    timer = pygame.time.get_ticks()/1000
+    print(int(timer))
+
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             done = False
 
 
 
-
-
-
-
         """событие нажатие на мыщку"""
         if e.type == pygame.MOUSEBUTTONDOWN:
             if e.button == 3:
-                fighter_atack_1 = True
+                 fighter_atack_1 = True
 
 
             if e.button == 1:
@@ -307,7 +306,7 @@ while done:
             fighter = fighter_up_copy
             if fighter_y > 200:
                 for i in range(20):
-                    fighter_y -= 0.1
+                    fighter_y -= 0.3
 
             else:
                 fighter_up = False
@@ -534,6 +533,7 @@ while done:
     screen_fake.blit(screen, (0, 0))
     screen_fake.blit(font.render('Health Fighter: '+str(HEALTH_FIGHTER), 5, (117, 74, 103)), (45, 20))
     screen_fake.blit(font.render('Health Bot: ' + str(HEALTH_BOT), 5, (117, 74, 103)), (45, 50))
+    screen_fake.blit(font2.render('fps: ' + str(int(clock.get_fps())), 5, (117, 74, 103)), (1370, 20))
     bot1.draw(screen_fake)
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
@@ -541,8 +541,14 @@ while done:
 
 
     """отображение рабочей поверхности на экран"""
+
     window.blit(screen_fake, (0, 0))
+    clock.tick(0)
     pygame.display.flip()
+
+
+
+
 
 
 
