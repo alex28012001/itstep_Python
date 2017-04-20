@@ -13,6 +13,8 @@ HEALTH_BOT = 100000
 DAMAGE_BOT_PROST = 10
 DAMAGE_BOT_SIL = 100
 GRAVITY = 0.09
+MANA = 100
+MANA_PLUS = 1
 
 
 """размер окна"""
@@ -36,8 +38,8 @@ screen_fake = pygame.Surface(SIZE)
 
 """шрифты"""
 pygame.font.init()
-font = pygame.font.SysFont("Candara", 25)
-font2 = pygame.font.SysFont("Candara", 17)
+font = pygame.font.SysFont("Berlin Sans FB", 25)
+font2 = pygame.font.SysFont("Berlin Sans FB", 17)
 
 
 
@@ -102,6 +104,63 @@ bot_atack_right_copy = bot_atack_right
 
 bot_atack_left = pygame.image.load("images/bot_atack_left.png").convert_alpha()
 bot_atack_left_copy = bot_atack_left
+
+"""Mana"""
+mana = pygame.image.load("images/Mana/1000%.png").convert()
+mana_copy = mana
+
+mana_950 = pygame.image.load("images/Mana/950%.png").convert()
+mana_950_copy = mana_950
+
+mana_900 = pygame.image.load("images/Mana/900%.png").convert()
+mana_900_copy = mana_900
+
+mana_850 = pygame.image.load("images/Mana/850%.png").convert()
+mana_850_copy = mana_850
+
+mana_800 = pygame.image.load("images/Mana/800%.png").convert()
+mana_800_copy = mana_800
+
+mana_750 = pygame.image.load("images/Mana/750%.png").convert()
+mana_750_copy = mana_750
+
+mana_700 = pygame.image.load("images/Mana/700%.png").convert()
+mana_700_copy = mana_700
+
+mana_650 = pygame.image.load("images/Mana/650%.png").convert()
+mana_650_copy = mana_650
+
+mana_600 = pygame.image.load("images/Mana/600%.png").convert()
+mana_600_copy = mana_600
+
+mana_550 = pygame.image.load("images/Mana/550%.png").convert()
+mana550_copy = mana_550
+
+mana_500 = pygame.image.load("images/Mana/500%.png").convert()
+mana_500_copy = mana_500
+
+mana_450 = pygame.image.load("images/Mana/450%.png").convert()
+mana_450_copy = mana_450
+
+mana_400 = pygame.image.load("images/Mana/400%.png").convert()
+mana_400_copy = mana_400
+
+mana_350 = pygame.image.load("images/Mana/350%.png").convert()
+mana_350_copy = mana_350
+
+mana_300 = pygame.image.load("images/Mana/300%.png").convert()
+mana_300_copy = mana_300
+
+mana_250 = pygame.image.load("images/Mana/250%.png").convert()
+mana_250_copy = mana_250
+
+
+"""Health"""
+health = pygame.image.load("images/Health/100%.png").convert()
+health_copy = health
+
+
+
 
 
 
@@ -176,16 +235,22 @@ sound.play(-1)
 
 
 
-
+sec = 1.00
 """обработчик событий"""
 done = True
 while done:
     timer = pygame.time.get_ticks()/1000
-    print(int(timer))
+    print(timer)
+
+    if MANA != 100:
+        if timer > sec:
+            sec += 1.00
+            MANA += MANA_PLUS
 
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             done = False
+
 
 
 
@@ -335,30 +400,80 @@ while done:
 
 
 
-
-
-
-
-
     """атаки Fighters"""
     if fighter_atack_1 == True:
         fighter = fighter_atack_stay_copy
-
 
     if fighter_atack_2 == True:
         fighter = fighter_atack_stay_2_copy
 
 
-    if fighter_right_atacks == True:
-        fighter = fighter_right_atack_copy
-
-    if fighter_left_atacks == True:
-        fighter = fighter_left_atack_copy
 
 
+    if MANA > 30:
+        if fighter_right_atacks == True:
+            fighter = fighter_right_atack_copy
+            MANA -= MANA_PLUS
+
+
+    if MANA > 30:
+        if fighter_left_atacks == True:
+            fighter = fighter_left_atack_copy
+            MANA -= MANA_PLUS
 
 
 
+    """Мана fighter"""
+    if MANA != -100:
+
+        if MANA == 100:
+            mana = mana_copy
+
+
+        elif MANA >= 95:
+            mana = mana_950
+
+        elif MANA >= 90:
+            mana = mana_900
+
+        elif MANA >= 85:
+            mana = mana_850
+
+        elif MANA >= 80:
+            mana = mana_800
+
+        elif MANA >= 75:
+            mana = mana_750
+
+        elif MANA >= 70:
+            mana = mana_700
+
+        elif MANA >= 65:
+            mana = mana_650
+
+        elif MANA >= 60:
+            mana = mana_600
+
+        elif MANA >= 55:
+            mana = mana_550
+
+        elif MANA >= 50:
+            mana = mana_500
+
+        elif MANA >= 45:
+            mana = mana_450
+
+        elif MANA >= 40:
+            mana = mana_400
+
+        elif MANA >= 35:
+            mana = mana_350
+
+        elif MANA >= 30:
+            mana = mana_300
+
+        elif MANA >= 25:
+            mana = mana_250
 
 
 
@@ -442,6 +557,9 @@ while done:
 
 
 
+
+
+
     """Передвежение бота по оси x"""
     bot1.update(fighter_x, fighter_y, bot)
 
@@ -459,6 +577,8 @@ while done:
 
     """столкновение c ботом"""
     if Intersect(fighter_x, bot1.bot_x, fighter_y, bot1.bot_y) == True:
+
+
 
         """право(бот)"""
         if fighter_x > bot1.bot_x:
@@ -479,8 +599,9 @@ while done:
                 HEALTH_BOT -= DAMAGE_BOT_PROST
 
             """сильная атака от fighter"""
-            if fighter_left_atacks == True:
-                HEALTH_BOT -= DAMAGE_BOT_SIL
+            if MANA > 30:
+                if fighter_left_atacks == True:
+                    HEALTH_BOT -= DAMAGE_BOT_SIL
 
 
 
@@ -510,8 +631,9 @@ while done:
                 HEALTH_BOT -= DAMAGE_BOT_PROST
 
             """сильная атака от fighter"""
-            if fighter_right_atacks == True:
-                HEALTH_BOT -= DAMAGE_BOT_SIL
+            if MANA > 30:
+                if fighter_right_atacks == True:
+                    HEALTH_BOT -= DAMAGE_BOT_SIL
 
 
 
@@ -528,12 +650,15 @@ while done:
 
 
 
-
     """отоброжение обьектов"""
     screen_fake.blit(screen, (0, 0))
     screen_fake.blit(font.render('Health Fighter: '+str(HEALTH_FIGHTER), 5, (117, 74, 103)), (45, 20))
     screen_fake.blit(font.render('Health Bot: ' + str(HEALTH_BOT), 5, (117, 74, 103)), (45, 50))
+    screen_fake.blit(font.render('Mana: ' + str(MANA), 5, (117, 74, 103)), (45, 80))
     screen_fake.blit(font2.render('fps: ' + str(int(clock.get_fps())), 5, (117, 74, 103)), (1370, 20))
+
+    screen_fake.blit(health, (fighter_x, fighter_y - 30))
+    screen_fake.blit(mana, (fighter_x, fighter_y - 60))
     bot1.draw(screen_fake)
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
@@ -545,10 +670,6 @@ while done:
     window.blit(screen_fake, (0, 0))
     clock.tick(0)
     pygame.display.flip()
-
-
-
-
 
 
 
