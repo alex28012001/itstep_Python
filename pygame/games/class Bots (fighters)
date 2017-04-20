@@ -1,5 +1,5 @@
 
-SPEED_BOT = 1
+SPEED_BOT = 1.4
 OTSTUP = 80
 bot_right = bot_left = False
 
@@ -31,7 +31,7 @@ class Bots(object):
                 self.bot_x -= SPEED_BOT
 
         if fighter_x > self.bot_x:
-            if self.bot_x < self.fighter_x - OTSTUP:
+            if self.bot_x < self.fighter_x - (OTSTUP + 10):
                 self.bot_x += SPEED_BOT
 
 
