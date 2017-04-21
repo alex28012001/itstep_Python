@@ -45,6 +45,11 @@ font2 = pygame.font.SysFont("Berlin Sans FB", 17)
 
 
 """создание обектов"""
+
+
+
+
+"""Птицы"""
 bird = pygame.image.load("images/bird.png").convert_alpha()
 bird = pygame.transform.scale(bird, (70, 70))
 birdq = bird
@@ -176,7 +181,7 @@ birdnew1_y = 80
 """координаты бойца"""
 fighter_right = False
 fighter_left = False
-fighterdown = False
+fighter_down = False
 fighter_up = False
 fighter_atack_1 = False
 fighter_atack_2 = False
@@ -284,7 +289,7 @@ while done:
                 fighter_left = True
 
             if e.key == pygame.K_s:
-                fighterdown = True
+                fighter_down = True
 
             if e.key == pygame.K_e:
                 fighter_right_atacks = True
@@ -314,7 +319,7 @@ while done:
                 fighter = fighter_copy
 
             if e.key == pygame.K_s:
-                fighterdown = False
+                fighter_down = False
                 fighter = fighter_copy
 
 
@@ -350,9 +355,10 @@ while done:
             fighter_x -= SPEED_FIGHTER
 
 
-    if fighterdown == True:
-        fighter = fighter_down_copy
-
+    if fighter_down == True:
+        if fighter_y > 544:
+            onGROUND = True
+            fighter = fighter_down_copy
 
 
 
