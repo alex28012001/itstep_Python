@@ -3,16 +3,16 @@ from pygame import mixer
 from Bot import Bots
 
 
-SPEED_FIGHTER = 5
-SPEED_BIRD_X = 0.6
-SPEED_BIRD_Y = 0.2
-JUMP_SPEED = 5.5
-HEALTH_FIGHTER = 10000
-DAMAGE_FIGHTER = 1
-HEALTH_BOT = 100000
-DAMAGE_BOT_PROST = 10
-DAMAGE_BOT_SIL = 100
-GRAVITY = 0.09
+SPEED_FIGHTER = 2
+SPEED_BIRD_X = 0.4
+SPEED_BIRD_Y = 0.1
+JUMP_SPEED = 0.1
+HEALTH_FIGHTER = 100
+DAMAGE_FIGHTER = 0.1
+HEALTH_BOT = 1000
+DAMAGE_BOT_PROST = 1
+DAMAGE_BOT_SIL = 10
+GRAVITY = 0.04
 MANA = 100
 MANA_PLUS = 1
 
@@ -105,63 +105,54 @@ bot_atack_right_copy = bot_atack_right
 bot_atack_left = pygame.image.load("images/bot_atack_left.png").convert_alpha()
 bot_atack_left_copy = bot_atack_left
 
+
+
 """Mana"""
 mana = pygame.image.load("images/Mana/1000%.png").convert()
 mana_copy = mana
 
 mana_950 = pygame.image.load("images/Mana/950%.png").convert()
-mana_950_copy = mana_950
-
 mana_900 = pygame.image.load("images/Mana/900%.png").convert()
-mana_900_copy = mana_900
-
 mana_850 = pygame.image.load("images/Mana/850%.png").convert()
-mana_850_copy = mana_850
-
 mana_800 = pygame.image.load("images/Mana/800%.png").convert()
-mana_800_copy = mana_800
-
 mana_750 = pygame.image.load("images/Mana/750%.png").convert()
-mana_750_copy = mana_750
-
 mana_700 = pygame.image.load("images/Mana/700%.png").convert()
-mana_700_copy = mana_700
-
 mana_650 = pygame.image.load("images/Mana/650%.png").convert()
-mana_650_copy = mana_650
-
 mana_600 = pygame.image.load("images/Mana/600%.png").convert()
-mana_600_copy = mana_600
-
 mana_550 = pygame.image.load("images/Mana/550%.png").convert()
-mana550_copy = mana_550
-
 mana_500 = pygame.image.load("images/Mana/500%.png").convert()
-mana_500_copy = mana_500
-
 mana_450 = pygame.image.load("images/Mana/450%.png").convert()
-mana_450_copy = mana_450
-
 mana_400 = pygame.image.load("images/Mana/400%.png").convert()
-mana_400_copy = mana_400
-
 mana_350 = pygame.image.load("images/Mana/350%.png").convert()
-mana_350_copy = mana_350
-
 mana_300 = pygame.image.load("images/Mana/300%.png").convert()
-mana_300_copy = mana_300
-
 mana_250 = pygame.image.load("images/Mana/250%.png").convert()
-mana_250_copy = mana_250
+
 
 
 """Health"""
 health = pygame.image.load("images/Health/100%.png").convert()
 health_copy = health
 
-
-
-
+health_95 = pygame.image.load("images/Health/95%.png").convert()
+health_90 = pygame.image.load("images/Health/90%.png").convert()
+health_85 = pygame.image.load("images/Health/85%.png").convert()
+health_80 = pygame.image.load("images/Health/80%.png").convert()
+health_75 = pygame.image.load("images/Health/75%.png").convert()
+health_70 = pygame.image.load("images/Health/70%.png").convert()
+health_65 = pygame.image.load("images/Health/65%.png").convert()
+health_60 = pygame.image.load("images/Health/60%.png").convert()
+health_55 = pygame.image.load("images/Health/55%.png").convert()
+health_50 = pygame.image.load("images/Health/50%.png").convert()
+health_45 = pygame.image.load("images/Health/45%.png").convert()
+health_40 = pygame.image.load("images/Health/40%.png").convert()
+health_35 = pygame.image.load("images/Health/35%.png").convert()
+health_30 = pygame.image.load("images/Health/30%.png").convert()
+health_25 = pygame.image.load("images/Health/25%.png").convert()
+health_20 = pygame.image.load("images/Health/20%.png").convert()
+health_15 = pygame.image.load("images/Health/15%.png").convert()
+health_10 = pygame.image.load("images/Health/10%.png").convert()
+health_5 = pygame.image.load("images/Health/5%.png").convert()
+health_0 = pygame.image.load("images/Health/0%.png").convert_alpha()
 
 
 
@@ -349,7 +340,7 @@ while done:
     """Условия передвежения Fighter"""
     if fighter_right == True:
         fighter = fighter_right_copy
-        if fighter_x < 1350:
+        if fighter_x < 1330:
             fighter_x += SPEED_FIGHTER
 
 
@@ -371,7 +362,7 @@ while done:
             fighter = fighter_up_copy
             if fighter_y > 200:
                 for i in range(20):
-                    fighter_y -= 0.3
+                    fighter_y -= JUMP_SPEED
 
             else:
                 fighter_up = False
@@ -475,6 +466,72 @@ while done:
         elif MANA >= 25:
             mana = mana_250
 
+    """Здоровье fighter"""
+    if HEALTH_FIGHTER != 110:
+
+        if HEALTH_FIGHTER == 100:
+            health = health_copy
+
+        elif HEALTH_FIGHTER >= 95:
+            health = health_95
+
+        elif HEALTH_FIGHTER >= 90:
+            health = health_90
+
+        elif HEALTH_FIGHTER >= 85:
+            health = health_85
+
+        elif HEALTH_FIGHTER >= 80:
+            health = health_80
+
+        elif HEALTH_FIGHTER >= 75:
+            health = health_75
+
+        elif HEALTH_FIGHTER >= 70:
+            health = health_70
+
+        elif HEALTH_FIGHTER >= 65:
+            health = health_65
+
+        elif HEALTH_FIGHTER >= 60:
+            health = health_60
+
+        elif HEALTH_FIGHTER >= 55:
+            health = health_55
+
+        elif HEALTH_FIGHTER >= 45:
+            health = health_45
+
+        elif HEALTH_FIGHTER >= 40:
+            health = health_40
+
+        elif HEALTH_FIGHTER >= 35:
+            health = health_35
+
+        elif HEALTH_FIGHTER >= 30:
+            health = health_30
+
+        elif HEALTH_FIGHTER >= 25:
+            health = health_25
+
+        elif HEALTH_FIGHTER >= 20:
+            health = health_20
+
+        elif HEALTH_FIGHTER >= 15:
+            health = health_15
+
+        elif HEALTH_FIGHTER >= 10:
+            health = health_10
+
+        elif HEALTH_FIGHTER >= 5:
+            health = health_5
+
+        elif HEALTH_FIGHTER >= 0:
+            health = health_0
+
+
+
+
 
 
 
@@ -545,14 +602,6 @@ while done:
         birdnew1_y -= SPEED_BIRD_Y
         if birdnew1_y < 80:
             birdnew1_down = True
-
-
-
-
-
-
-
-
 
 
 
@@ -657,8 +706,8 @@ while done:
     screen_fake.blit(font.render('Mana: ' + str(MANA), 5, (117, 74, 103)), (45, 80))
     screen_fake.blit(font2.render('fps: ' + str(int(clock.get_fps())), 5, (117, 74, 103)), (1370, 20))
 
-    screen_fake.blit(health, (fighter_x, fighter_y - 30))
-    screen_fake.blit(mana, (fighter_x, fighter_y - 60))
+    screen_fake.blit(health, (fighter_x, fighter_y - 25))
+    screen_fake.blit(mana, (fighter_x, fighter_y - 40))
     bot1.draw(screen_fake)
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
@@ -670,6 +719,11 @@ while done:
     window.blit(screen_fake, (0, 0))
     clock.tick(0)
     pygame.display.flip()
+
+
+
+
+
 
 
 
