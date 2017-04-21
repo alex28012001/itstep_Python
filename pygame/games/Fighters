@@ -3,18 +3,21 @@ from pygame import mixer
 from Bot import Bots
 
 
-SPEED_FIGHTER = 2
+SPEED_FIGHTER = 3
 SPEED_BIRD_X = 0.4
 SPEED_BIRD_Y = 0.1
-JUMP_SPEED = 0.1
+JUMP_SPEED = 0.2
 HEALTH_FIGHTER = 100
 DAMAGE_FIGHTER = 0.1
-HEALTH_BOT = 1000
-DAMAGE_BOT_PROST = 1
-DAMAGE_BOT_SIL = 10
+HEALTH_BOT = 70
+DAMAGE_BOT_PROST = 0.09
+DAMAGE_BOT_SIL = 1
 GRAVITY = 0.04
 MANA = 100
 MANA_PLUS = 1
+
+
+
 
 
 """размер окна"""
@@ -134,7 +137,8 @@ mana_250 = pygame.image.load("images/Mana/250%.png").convert()
 
 
 
-"""Health"""
+
+"""Health fighter"""
 health = pygame.image.load("images/Health/100%.png").convert()
 health_copy = health
 
@@ -159,11 +163,9 @@ health_10 = pygame.image.load("images/Health/10%.png").convert()
 health_5 = pygame.image.load("images/Health/5%.png").convert()
 health_0 = pygame.image.load("images/Health/0%.png").convert_alpha()
 
-
-
-
-
-
+"""Health bot"""
+health_bot = pygame.image.load("images/Health_bot/70%.png").convert
+health_bot_copy = health_bot
 
 
 """координаты птиц"""
@@ -200,8 +202,10 @@ fighter_y = 250
 bot_right = bot_left = False
 bot_atack1 = False
 bot_atack2 = False
+
 """1 БОТ"""
-bot1 = Bots(600, 520, fighter_x, fighter_y, bot, bot_atack_right, bot_atack_left)
+bot1 = Bots(600, 520, fighter_x, fighter_y, bot, bot_atack_right,
+            bot_atack_left,HEALTH_BOT,HEALTH_FIGHTER)
 
 
 
@@ -407,13 +411,13 @@ while done:
 
 
 
-    if MANA > 30:
+    if MANA > 10:
         if fighter_right_atacks == True:
             fighter = fighter_right_atack_copy
             MANA -= MANA_PLUS
 
 
-    if MANA > 30:
+    if MANA > 10:
         if fighter_left_atacks == True:
             fighter = fighter_left_atack_copy
             MANA -= MANA_PLUS
@@ -472,7 +476,7 @@ while done:
         elif MANA >= 25:
             mana = mana_250
 
-    """Здоровье fighter"""
+    """Health fighter"""
     if HEALTH_FIGHTER != 110:
 
         if HEALTH_FIGHTER == 100:
@@ -536,8 +540,8 @@ while done:
             health = health_0
 
 
-
-
+    """Health bot"""
+    bot1.health(HEALTH_BOT, HEALTH_FIGHTER)
 
 
 
