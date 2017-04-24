@@ -205,7 +205,7 @@ bot_atack2 = False
 vidimost = True
 
 """1 БОТ"""
-bot1 = Bots(600, 520, fighter_x, fighter_y, bot, bot_atack_right,
+bot1 = Bots(600, 250, fighter_x, fighter_y, bot, bot_atack_right,
             bot_atack_left,HEALTH_BOT,HEALTH_FIGHTER)
 
 
@@ -214,7 +214,7 @@ bot1 = Bots(600, 520, fighter_x, fighter_y, bot, bot_atack_right,
 
 """функция для столкновения обьектов"""
 def Intersect(x1, x2, y1, y2):
-    if (x1 > x2-135) and (x1 < x2 + 159) and (y1 > y2- 140) and (y1 < y2+ 185):
+    if (x1 > x2-135) and (x1 < x2 + 159) and (y1 > y2 - 140) and (y1 < y2+ 185):
         return 1
     else:
         return 0
@@ -235,7 +235,7 @@ sound.play(-1)
 
 
 
-sec = 1.00
+sec = 0.50
 """обработчик событий"""
 done = True
 while done:
@@ -244,7 +244,7 @@ while done:
 
     if MANA != 100:
         if timer > sec:
-            sec += 1.00
+            sec += 0.50
             MANA += MANA_PLUS
 
     for e in pygame.event.get():
@@ -539,9 +539,12 @@ while done:
         elif HEALTH_FIGHTER >= 0:
             health = health_0
 
+    if vidimost == True:
+        """Health bot"""
+        bot1.health(HEALTH_BOT, HEALTH_FIGHTER)
 
-    """Health bot"""
-    bot1.health(HEALTH_BOT, HEALTH_FIGHTER)
+
+
 
 
 
@@ -585,6 +588,7 @@ while done:
 
 
 
+
     """Передвежение 2 птицы по оси X"""
     if birdnew1_right == True:
         birdnew1_x += SPEED_BIRD_X
@@ -618,11 +622,15 @@ while done:
 
 
 
-    """Передвежение бота по оси x"""
-    bot1.update(fighter_x, fighter_y, bot)
 
 
-    if HEALTH_BOT <= 0:
+
+    if vidimost == True:
+        """Передвежение бота по оси x"""
+        bot1.update(fighter_x, fighter_y, bot)
+
+
+    if HEALTH_BOT <= 9:
         vidimost = False
 
 
@@ -718,7 +726,8 @@ while done:
 
     screen_fake.blit(health, (fighter_x, fighter_y - 25))
     screen_fake.blit(mana, (fighter_x, fighter_y - 40))
-    bot1.draw(screen_fake)
+    if vidimost == True:
+        bot1.draw(screen_fake)
     screen_fake.blit(fighter, (fighter_x, fighter_y))
     screen_fake.blit(bird, (bird_x, bird_y))
     screen_fake.blit(birdnew1, (birdnew1_x, birdnew1_y))
