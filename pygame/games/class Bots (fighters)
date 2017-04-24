@@ -6,6 +6,7 @@ bot_right = bot_left = False
 
 
 
+
 class Bots(object):
     def __init__(self, bot_x, bot_y, fighter_x, fighter_y, image, bot_atack_right, bot_atack_left,
                  HEALTH_BOT, HEALTH_FIGHTER):
@@ -21,8 +22,9 @@ class Bots(object):
         self.OTSTUP = OTSTUP
         self.HEALTH_BOT = HEALTH_BOT
         self.HEALTH_FIGHTER = HEALTH_FIGHTER
-
-
+        self.yvel = 0
+        self.onGROUND = False
+        self.GRAVITY = 0.04
 
 
 
@@ -41,6 +43,27 @@ class Bots(object):
         if fighter_x > self.bot_x:
             if self.bot_x < self.fighter_x - (OTSTUP + 10):
                 self.bot_x += SPEED_BOT
+
+
+
+        """Падение"""
+        if self.bot_y > 520:
+            self.onGROUND = True
+
+        if self.onGROUND == False:
+            if self.bot_x > 520:
+                self.yvel += self.GRAVITY
+                self.bot_y += self.yvel
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -84,10 +107,10 @@ class Bots(object):
         elif self.HEALTH_BOT >= 10:
             self.health_bot = health_10_bot
 
-        elif self.HEALTH_BOT >= 0:
+        elif self.HEALTH_BOT >= 9:
             self.health_bot = health_0_bot
 
-        elif self.HEALTH_BOT < 0:
+        elif self.HEALTH_BOT < 9:
             self.health_bot = health_0_bot
 
 
