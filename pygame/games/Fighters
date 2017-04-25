@@ -3,6 +3,10 @@ from pygame import mixer
 from Bot import Bots
 
 
+
+
+
+
 SPEED_FIGHTER = 3
 SPEED_BIRD_X = 0.4
 SPEED_BIRD_Y = 0.1
@@ -191,7 +195,7 @@ fighter_right_atacks = False
 fighter_left_atacks = False
 onGROUND = False
 fighter_yvel = 0
-fighter_x = 70
+fighter_x = 500
 fighter_y = 250
 
 
@@ -738,7 +742,6 @@ while done:
     window.blit(screen_fake, (0, 0))
     clock.tick(0)
     pygame.display.flip()
-
 
 
 
