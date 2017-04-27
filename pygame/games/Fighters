@@ -753,7 +753,12 @@ while done:
 
 
 
------------------
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
 
@@ -1355,50 +1360,50 @@ def fun(event):
 
 
 
-
-
 root = Tk()
 root.geometry("600x700")
 
-canvas = Canvas(root, width = 600, height = 700, bg = 'blue')
+canvas = Canvas(root, width = 600, height = 700, bg = '#A9A9A9')
 
 
-button_play = Button(root, text='Play', fg = 'red', bg = "green", width = 30, height = '3')
+label = Label(root,
+            text="Fighters",
+            bg = "#A9A9A9",
+            fg = 'black',
+            font="Aharoni 90")
+label.place(x = 80, y = 20)
+
+
+
+
+
+button_play = Button(root, text='Play', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
 button_play.bind('<Button-1>', fun)
-button_play.place(x = 190, y = 100)
+button_play.place(x = 170, y = 150)
+
+button_play = Button(root, text='Control', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
+button_play.bind('<Button-1>')
+button_play.place(x = 170, y = 250)
+
+button_play = Button(root, text='Volume', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
+button_play.bind('<Button-1>')
+button_play.place(x = 170, y = 350)
+
+button_play = Button(root, text='Description', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
+button_play.bind('<Button-1>')
+button_play.place(x = 170, y = 450)
+
+button_play = Button(root, text='Exit', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
+button_play.bind('<Button-1>')
+button_play.place(x = 170, y = 550)
+
+
+
+
 
 canvas.pack()
 
 root.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
