@@ -762,17 +762,17 @@ while done:
 
 
 
-
-
-
-
 import pygame
 from pygame import mixer
 from Bot import Bots
 from tkinter import *
+import sys
 
 
 def fun(event):
+
+
+
     SPEED_FIGHTER = 3
     SPEED_BIRD_X = 0.4
     SPEED_BIRD_Y = 0.1
@@ -801,13 +801,31 @@ def fun(event):
     """холст фейк"""
     screen_fake = pygame.Surface(SIZE)
 
+
+
+
+
+
+
+
+
+
+
     """шрифты"""
     pygame.font.init()
     font = pygame.font.SysFont("Berlin Sans FB", 25)
     font2 = pygame.font.SysFont("Berlin Sans FB", 17)
 
-    """создание обектов"""
 
+
+
+
+
+
+
+
+
+    """создание обектов"""
     """Птицы"""
     bird = pygame.image.load("images/bird.png").convert_alpha()
     bird = pygame.transform.scale(bird, (70, 70))
@@ -854,12 +872,17 @@ def fun(event):
     bot = pygame.image.load("images/bot.png").convert_alpha()
     bot_copy = bot
 
+
+
     """Атаки Бота"""
     bot_atack_right = pygame.image.load("images/bot_atack_right.png").convert_alpha()
     bot_atack_right_copy = bot_atack_right
 
     bot_atack_left = pygame.image.load("images/bot_atack_left.png").convert_alpha()
     bot_atack_left_copy = bot_atack_left
+
+
+
 
     """Mana"""
     mana = pygame.image.load("images/Mana/1000%.png").convert()
@@ -910,6 +933,12 @@ def fun(event):
     health_bot = pygame.image.load("images/Health_bot/70%.png").convert
     health_bot_copy = health_bot
 
+
+
+
+
+
+
     """координаты птиц"""
     bird_right = True
     bird_down = True
@@ -945,13 +974,24 @@ def fun(event):
     bot1 = Bots(600, 250, fighter_x, fighter_y, bot, bot_atack_right,
                 bot_atack_left, HEALTH_BOT, HEALTH_FIGHTER)
 
-    """функция для столкновения обьектов"""
 
+
+
+
+
+
+
+    """функция для столкновения обьектов"""
     def Intersect(x1, x2, y1, y2):
         if (x1 > x2 - 135) and (x1 < x2 + 159) and (y1 > y2 - 140) and (y1 < y2 + 185):
             return 1
         else:
             return 0
+
+
+
+
+
 
     """Фоновая музыка"""
     mixer.pre_init(44100, -16, 1, 512)
@@ -960,6 +1000,13 @@ def fun(event):
     sound.play(-1)
 
     sec = 0.50
+
+
+
+
+
+
+
     """обработчик событий"""
     done = True
     while done:
@@ -974,6 +1021,11 @@ def fun(event):
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 done = False
+                sys.exit()
+
+
+
+
 
             """событие нажатие на мыщку"""
             if e.type == pygame.MOUSEBUTTONDOWN:
@@ -982,6 +1034,11 @@ def fun(event):
 
                 if e.button == 1:
                     fighter_atack_2 = True
+
+
+
+
+
 
             """событие отжатие на мышку"""
             if e.type == pygame.MOUSEBUTTONUP:
@@ -992,6 +1049,10 @@ def fun(event):
                 if e.button == 1:
                     fighter_atack_2 = False
                     fighter = fighter_copy
+
+
+
+
 
             """событие нажатия на клавиатуру"""
             if e.type == pygame.KEYDOWN:
@@ -1014,6 +1075,10 @@ def fun(event):
                 if fighter_y > 544:
                     if e.key == pygame.K_SPACE:
                         fighter_up = True
+
+
+
+
 
             """событие отжатие клавиатуры"""
             if e.type == pygame.KEYUP:
@@ -1038,6 +1103,11 @@ def fun(event):
                     fighter_left_atacks = False
                     fighter = fighter_copy
 
+
+
+
+
+
         """Условия передвежения Fighter"""
         if fighter_right == True:
             fighter = fighter_right_copy
@@ -1054,6 +1124,9 @@ def fun(event):
                 onGROUND = True
                 fighter = fighter_down_copy
 
+
+
+
         """Прыжок"""
         if fighter_up == True:
             onGROUND = True
@@ -1069,12 +1142,20 @@ def fun(event):
         if onGROUND == True:
             fighter_yvel = 0
 
+
+
+
         """Падение"""
         if onGROUND == False:
             fighter = fighter_copy
             if fighter_y < 545:
                 fighter_yvel += GRAVITY
                 fighter_y += fighter_yvel
+
+
+
+
+
 
         """атаки Fighters"""
         if fighter_atack_1 == True:
@@ -1092,6 +1173,12 @@ def fun(event):
             if fighter_left_atacks == True:
                 fighter = fighter_left_atack_copy
                 MANA -= MANA_PLUS
+
+
+
+
+
+
 
         """Мана fighter"""
         if MANA != -100:
@@ -1144,6 +1231,8 @@ def fun(event):
 
             elif MANA >= 25:
                 mana = mana_250
+
+
 
         """Health fighter"""
         if HEALTH_FIGHTER != 110:
@@ -1212,6 +1301,14 @@ def fun(event):
             """Health bot"""
             bot1.health(HEALTH_BOT, HEALTH_FIGHTER)
 
+
+
+
+
+
+
+
+
         """Передвежение 1 птицы по оси X"""
         if bird_right == True:
             bird_x += SPEED_BIRD_X
@@ -1237,6 +1334,14 @@ def fun(event):
             bird_y -= SPEED_BIRD_Y
             if bird_y < 20:
                 bird_down = True
+
+
+
+
+
+
+
+
 
         """Передвежение 2 птицы по оси X"""
         if birdnew1_right == True:
@@ -1265,11 +1370,25 @@ def fun(event):
                 birdnew1_down = True
 
         if vidimost == True:
+
+
+
+
+
             """Передвежение бота по оси x"""
             bot1.update(fighter_x, fighter_y, bot)
 
         if HEALTH_BOT <= 9:
             vidimost = False
+
+
+
+
+
+
+
+
+
 
         """заливка фейкового холста"""
         screen_fake.fill((50, 50, 50))
@@ -1330,6 +1449,19 @@ def fun(event):
         else:
             bot = pygame.image.load("images/Health_bot/0%.png").convert_alpha()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         """отоброжение обьектов"""
         screen_fake.blit(screen, (0, 0))
         screen_fake.blit(font.render('Health Fighter: ' + str(HEALTH_FIGHTER), 5, (117, 74, 103)), (45, 20))
@@ -1354,6 +1486,21 @@ def fun(event):
 
 
 
+def exit(event):
+    sys.exit()
+
+
+
+def description(canvas):
+
+    canvas1 = Canvas(root, width=600, height=700, bg='blue')
+    canvas = canvas1
+
+
+
+
+
+
 
 
 
@@ -1371,7 +1518,8 @@ label = Label(root,
             bg = "#A9A9A9",
             fg = 'black',
             font="Aharoni 90")
-label.place(x = 80, y = 20)
+label.place(x = 90, y = 7)
+
 
 
 
@@ -1379,23 +1527,27 @@ label.place(x = 80, y = 20)
 
 button_play = Button(root, text='Play', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
 button_play.bind('<Button-1>', fun)
-button_play.place(x = 170, y = 150)
+button_play.place(x = 150, y = 150)
 
 button_play = Button(root, text='Control', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
 button_play.bind('<Button-1>')
-button_play.place(x = 170, y = 250)
+button_play.place(x = 150, y = 250)
 
 button_play = Button(root, text='Volume', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
 button_play.bind('<Button-1>')
-button_play.place(x = 170, y = 350)
+button_play.place(x = 150, y = 350)
 
 button_play = Button(root, text='Description', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-button_play.bind('<Button-1>')
-button_play.place(x = 170, y = 450)
+button_play.bind('<Button-1>', lambda event: description(canvas, root))
+button_play.place(x = 150, y = 450)
 
 button_play = Button(root, text='Exit', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-button_play.bind('<Button-1>')
-button_play.place(x = 170, y = 550)
+button_play.bind('<Button-1>', exit)
+button_play.place(x = 150, y = 550)
+
+
+
+
 
 
 
@@ -1404,7 +1556,6 @@ button_play.place(x = 170, y = 550)
 canvas.pack()
 
 root.mainloop()
-
 
 
 
