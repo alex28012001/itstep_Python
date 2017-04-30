@@ -5,6 +5,50 @@ from tkinter import *
 import sys
 
 
+
+
+
+
+def main(root, canvas_fake, canvas):
+    canvas.destroy()
+
+    canvas1 = Canvas(root, width=600, height=700, bg='#A9A9A9')
+    canvas_fake = Canvas(root, width=600, height=700, bg='#A9A9A9')
+
+    label = Label(canvas_fake,
+                  text="Fighters",
+                  bg="#A9A9A9",
+                  fg='black',
+                  font="Aharoni 90")
+    label.place(x=90, y=7)
+
+    button_play = Button(canvas_fake, text='Play', fg='red', bg="#696969", width=30, height='3', font='Calibri')
+    button_play.bind('<Button-1>', lambda event: fun(root))
+    button_play.place(x=150, y=150)
+
+    button_play = Button(canvas_fake, text='Control', fg='red', bg="#696969", width=30, height='3',
+                         font='Calibri')
+    button_play.bind('<Button-1>', lambda event:control(canvas_fake,canvas1, root))
+    button_play.place(x=150, y=250)
+
+    button_play = Button(canvas_fake, text='Volume', fg='red', bg="#696969", width=30, height='3', font='Calibri')
+    button_play.bind('<Button-1>')
+    button_play.place(x=150, y=350)
+
+    button_play = Button(canvas_fake, text='Description', fg='red', bg="#696969", width=30, height='3',
+                         font='Calibri')
+    button_play.bind('<Button-1>', lambda event: description(canvas_fake,canvas1, root))
+    button_play.place(x=150, y=450)
+
+    button_play = Button(canvas_fake, text='Exit', fg='red', bg="#696969", width=30, height='3', font='Calibri')
+    button_play.bind('<Button-1>', exit)
+    button_play.place(x=150, y=550)
+
+    canvas_fake.pack()
+    canvas1.pack()
+    root.mainloop()
+
+
 def fun(root):
     root.destroy()
 
@@ -255,10 +299,22 @@ def fun(root):
                 sec += 0.50
                 MANA += MANA_PLUS
 
+
+
+
+
+
+
+
+        """ЦИКЛ"""
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 done = False
                 sys.exit()
+
+
+
+
 
 
 
@@ -293,6 +349,9 @@ def fun(root):
 
             """событие нажатия на клавиатуру"""
             if e.type == pygame.KEYDOWN:
+
+                if e.key == pygame.K_ESCAPE:
+                    menu()
 
                 if e.key == pygame.K_d:
                     fighter_right = True
@@ -721,56 +780,8 @@ def fun(root):
         pygame.display.flip()
 
 
-
-
 def exit(event):
     sys.exit()
-
-
-
-
-def main(root, canvas_fake, canvas):
-    canvas.destroy()
-
-    canvas1 = Canvas(root, width=600, height=700, bg='#A9A9A9')
-    canvas_fake = Canvas(root, width=600, height=700, bg='#A9A9A9')
-
-    label = Label(canvas_fake,
-                  text="Fighters",
-                  bg="#A9A9A9",
-                  fg='black',
-                  font="Aharoni 90")
-    label.place(x=90, y=7)
-
-    button_play = Button(canvas_fake, text='Play', fg='red', bg="#696969", width=30, height='3', font='Calibri')
-    button_play.bind('<Button-1>', lambda event: fun(root))
-    button_play.place(x=150, y=150)
-
-    button_play = Button(canvas_fake, text='Control', fg='red', bg="#696969", width=30, height='3',
-                         font='Calibri')
-    button_play.bind('<Button-1>', lambda event:control(canvas_fake,canvas1, root))
-    button_play.place(x=150, y=250)
-
-    button_play = Button(canvas_fake, text='Volume', fg='red', bg="#696969", width=30, height='3', font='Calibri')
-    button_play.bind('<Button-1>')
-    button_play.place(x=150, y=350)
-
-    button_play = Button(canvas_fake, text='Description', fg='red', bg="#696969", width=30, height='3',
-                         font='Calibri')
-    button_play.bind('<Button-1>', lambda event: description(canvas_fake,canvas1, root))
-    button_play.place(x=150, y=450)
-
-    button_play = Button(canvas_fake, text='Exit', fg='red', bg="#696969", width=30, height='3', font='Calibri')
-    button_play.bind('<Button-1>', exit)
-    button_play.place(x=150, y=550)
-
-    canvas_fake.pack()
-    canvas1.pack()
-    root.mainloop()
-
-
-
-
 
 
 def description(canvas_fake, canvas, root):
@@ -786,9 +797,6 @@ def description(canvas_fake, canvas, root):
 
 
     root.mainloop()
-
-
-
 
 
 def control(canvas_fake, canvas, root):
@@ -810,60 +818,61 @@ def control(canvas_fake, canvas, root):
 
 
 
-
-
-root = Tk()
-root.geometry("600x700")
-root.title('menu')
-
-
-
-canvas_fake = Canvas(root, width = 600, height = 700, bg = '#A9A9A9')
-canvas = Canvas(root, width = 600, height = 700, bg = '#A9A9A9')
+def menu ():
+    root = Tk()
+    root.geometry("600x700")
+    root.title('menu')
 
 
 
-label = Label(canvas_fake,
-            text="Fighters",
-            bg = "#A9A9A9",
-            fg = 'black',
-            font="Aharoni 90")
-label.place(x = 90, y = 7)
+    canvas_fake = Canvas(root, width = 600, height = 700, bg = '#A9A9A9')
+    canvas = Canvas(root, width = 600, height = 700, bg = '#A9A9A9')
 
 
 
-
-
-
-button_play = Button(canvas_fake, text='Play', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-button_play.bind('<Button-1>',lambda event: fun(root))
-button_play.place(x = 150, y = 150)
-
-button_play = Button(canvas_fake, text='Control', fg = 'red', bg = "#696969", width = 30, height = '3',
-                    font = 'Calibri')
-button_play.bind('<Button-1>', lambda event: control(canvas_fake,canvas, root))
-button_play.place(x = 150, y = 250)
-
-button_play = Button(canvas_fake, text='Volume', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-button_play.bind('<Button-1>')
-button_play.place(x = 150, y = 350)
-
-button_play = Button(canvas_fake, text='Description', fg = 'red', bg = "#696969", width = 30, height = '3',
-                    font = 'Calibri')
-button_play.bind('<Button-1>', lambda event: description(canvas_fake,canvas, root))
-button_play.place(x = 150, y = 450)
-
-button_play = Button(canvas_fake, text='Exit', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-button_play.bind('<Button-1>', exit)
-button_play.place(x = 150, y = 550)
+    label = Label(canvas_fake,
+                text="Fighters",
+                bg = "#A9A9A9",
+                fg = 'black',
+                font="Aharoni 90")
+    label.place(x = 90, y = 7)
 
 
 
 
 
 
+    button_play = Button(canvas_fake, text='Play', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
+    button_play.bind('<Button-1>',lambda event: fun(root))
+    button_play.place(x = 150, y = 150)
+
+    button_play = Button(canvas_fake, text='Control', fg = 'red', bg = "#696969", width = 30, height = '3',
+                        font = 'Calibri')
+    button_play.bind('<Button-1>', lambda event: control(canvas_fake,canvas, root))
+    button_play.place(x = 150, y = 250)
+
+    button_play = Button(canvas_fake, text='Volume', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
+    button_play.bind('<Button-1>')
+    button_play.place(x = 150, y = 350)
+
+    button_play = Button(canvas_fake, text='Description', fg = 'red', bg = "#696969", width = 30, height = '3',
+                        font = 'Calibri')
+    button_play.bind('<Button-1>', lambda event: description(canvas_fake,canvas, root))
+    button_play.place(x = 150, y = 450)
+
+    button_play = Button(canvas_fake, text='Exit', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
+    button_play.bind('<Button-1>', exit)
+    button_play.place(x = 150, y = 550)
 
 
-canvas_fake.pack()
-canvas.pack()
-root.mainloop()
+
+
+
+
+
+
+    canvas_fake.pack()
+    canvas.pack()
+    root.mainloop()
+
+menu()
