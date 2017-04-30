@@ -198,7 +198,7 @@ def fun(root):
     fighter_left_atacks = False
     onGROUND = False
     fighter_yvel = 0
-    fighter_x = 500
+    fighter_x = 200
     fighter_y = 250
 
     """координаты бота"""
@@ -208,7 +208,7 @@ def fun(root):
     vidimost = True
 
     """1 БОТ"""
-    bot1 = Bots(600, 250, fighter_x, fighter_y, bot, bot_atack_right,
+    bot1 = Bots(1000, 250, fighter_x, fighter_y, bot, bot_atack_right,
                 bot_atack_left, HEALTH_BOT, HEALTH_FIGHTER)
 
 
@@ -748,7 +748,7 @@ def main(root, canvas_fake, canvas):
 
     button_play = Button(canvas_fake, text='Control', fg='red', bg="#696969", width=30, height='3',
                          font='Calibri')
-    button_play.bind('<Button-1>')
+    button_play.bind('<Button-1>', lambda event:control(canvas_fake,canvas1, root))
     button_play.place(x=150, y=250)
 
     button_play = Button(canvas_fake, text='Volume', fg='red', bg="#696969", width=30, height='3', font='Calibri')
@@ -791,6 +791,16 @@ def description(canvas_fake, canvas, root):
 
 
 
+def control(canvas_fake, canvas, root):
+    canvas_fake.destroy()
+
+    image = PhotoImage(file='images/control.gif')
+    l = Label(canvas, image=image)
+    l.pack()
+
+    root.bind('<Escape>', lambda event: main(root, canvas_fake, canvas))
+
+    root.mainloop()
 
 
 
@@ -831,7 +841,7 @@ button_play.place(x = 150, y = 150)
 
 button_play = Button(canvas_fake, text='Control', fg = 'red', bg = "#696969", width = 30, height = '3',
                     font = 'Calibri')
-button_play.bind('<Button-1>')
+button_play.bind('<Button-1>', lambda event: control(canvas_fake,canvas, root))
 button_play.place(x = 150, y = 250)
 
 button_play = Button(canvas_fake, text='Volume', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
