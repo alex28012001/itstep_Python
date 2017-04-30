@@ -761,7 +761,6 @@ while done:
 
 
 
-
 import pygame
 from pygame import mixer
 from Bot import Bots
@@ -769,7 +768,8 @@ from tkinter import *
 import sys
 
 
-def fun(event):
+def fun(root):
+    root.destroy()
 
 
 
@@ -1492,9 +1492,9 @@ def exit(event):
 
 
 def description(canvas):
+    canvas.destroy()
 
-    canvas1 = Canvas(root, width=600, height=700, bg='blue')
-    canvas = canvas1
+
 
 
 
@@ -1526,7 +1526,7 @@ label.place(x = 90, y = 7)
 
 
 button_play = Button(root, text='Play', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-button_play.bind('<Button-1>', fun)
+button_play.bind('<Button-1>',lambda event: fun(root))
 button_play.place(x = 150, y = 150)
 
 button_play = Button(root, text='Control', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
@@ -1538,7 +1538,7 @@ button_play.bind('<Button-1>')
 button_play.place(x = 150, y = 350)
 
 button_play = Button(root, text='Description', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-button_play.bind('<Button-1>', lambda event: description(canvas, root))
+button_play.bind('<Button-1>', lambda event: description(canvas))
 button_play.place(x = 150, y = 450)
 
 button_play = Button(root, text='Exit', fg = 'red', bg = "#696969", width = 30, height = '3', font = 'Calibri')
@@ -1556,7 +1556,5 @@ button_play.place(x = 150, y = 550)
 canvas.pack()
 
 root.mainloop()
-
-
 
 
