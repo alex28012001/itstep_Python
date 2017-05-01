@@ -54,7 +54,7 @@ def fun(root):
 
 
 
-    SPEED_FIGHTER = 3
+    SPEED_FIGHTER = 4
     SPEED_BIRD_X = 0.4
     SPEED_BIRD_Y = 0.1
     JUMP_SPEED = 0.2
@@ -63,7 +63,7 @@ def fun(root):
     HEALTH_BOT = 70
     DAMAGE_BOT_PROST = 0.09
     DAMAGE_BOT_SIL = 1
-    GRAVITY = 0.04
+    GRAVITY = 0.08
     MANA = 100
     MANA_PLUS = 1
 
