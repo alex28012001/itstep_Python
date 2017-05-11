@@ -923,7 +923,7 @@ def main(root, canvas_fake, canvas):
     button_play.place(x=150, y=250)
 
     button_play = Button(canvas_fake, text='Volume', fg='white', bg="#696969", width=30, height='3', font='Calibri')
-    button_play.bind('<Button-1>')
+    button_play.bind('<Button-1>',lambda event: volume(canvas_fake,canvas1, root))
     button_play.place(x=150, y=350)
 
     button_play = Button(canvas_fake, text='Description', fg='white', bg="#696969", width=30, height='3',
@@ -1799,6 +1799,33 @@ def control(canvas_fake, canvas, root):
 
 
 
+def volume(canvas_fake, canvas, root):
+    canvas_fake.destroy()
+
+    image = PhotoImage(file='images/volume.gif')
+    l = Label(canvas, image=image)
+    l.pack()
+
+
+    def volume_but(event):
+        ent = ent1.get()
+        print(ent)
+
+
+
+
+    ent1 = Entry(canvas, width=20, bd=8, font = "Calibri 20")
+    ent1.insert(END, "100")
+    ent1.place(x = 50, y=200)
+
+    button_play = Button(canvas, text='Enter', fg='white', bg="#696969", width=25, height='2', font='Calibri')
+    button_play.bind('<Button-1>', volume_but)
+    button_play.place(x=360, y=200)
+
+
+
+    root.bind('<Escape>', lambda event: main(root, canvas_fake, canvas))
+    root.mainloop()
 
 
 
@@ -1837,7 +1864,7 @@ def menu ():
     button_play.place(x = 170, y = 250)
 
     button_play = Button(canvas_fake, text='Volume', fg = 'white', bg = "#696969", width = 30, height = '3', font = 'Calibri')
-    button_play.bind('<Button-1>')
+    button_play.bind('<Button-1>',lambda event: volume(canvas_fake,canvas, root))
     button_play.place(x = 170, y = 350)
 
     button_play = Button(canvas_fake, text='Description', fg = 'white', bg = "#696969", width = 30, height = '3',
@@ -1861,6 +1888,22 @@ def menu ():
     root.mainloop()
 
 menu()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
