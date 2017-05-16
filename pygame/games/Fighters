@@ -877,7 +877,7 @@ def control(canvas_fake, canvas, root):
 
 
     ent1 = Entry(canvas, width=20, bd=7)
-    ent1.insert(END, "`")
+    ent1.insert(END, "Esc")
     ent1.place(x=400, y=25)
 
 
