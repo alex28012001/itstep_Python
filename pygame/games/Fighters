@@ -20,7 +20,7 @@ def main(root, canvas_fake, canvas):
                   bg="#A9A9A9",
                   fg='black',
                   font="Aharoni 90")
-    label.place(x=60, y=7)
+    label.place(x=80, y=7)
 
     button_play = Button(canvas_fake, text='Play', fg='white', bg="#696969", width=30, height='3', font='Calibri')
     button_play.bind('<Button-1>', lambda event: fun(root))
@@ -57,18 +57,16 @@ def main(root, canvas_fake, canvas):
 def fun(root):
     root.destroy()
 
-
-
-    SPEED_FIGHTER = 5
-    SPEED_BIRD_X = 0.8
-    SPEED_BIRD_Y = 0.3
-    JUMP_SPEED = 0.4
+    SPEED_FIGHTER = 4
+    SPEED_BIRD_X = 0.4
+    SPEED_BIRD_Y = 0.1
+    JUMP_SPEED = 0.2
     HEALTH_FIGHTER = 100
-    DAMAGE_FIGHTER = 0.2
+    DAMAGE_FIGHTER = 0.1
     HEALTH_BOT = 70
-    DAMAGE_BOT_PROST = 0.1
+    DAMAGE_BOT_PROST = 0.09
     DAMAGE_BOT_SIL = 1
-    GRAVITY = 0.13
+    GRAVITY = 0.08
     MANA = 100
     MANA_PLUS = 1
 
@@ -82,8 +80,8 @@ def fun(root):
     """холст"""
     screen = pygame.image.load("images/fon.png").convert()
     screen = pygame.transform.scale(screen, (SIZE))
-    screen_win = pygame.image.load("images/win.png").convert()
-    screen_lose = pygame.image.load("images/lose.png").convert()
+    screen_win = pygame.image.load("images/win.jpg").convert()
+    screen_lose = pygame.image.load("images/lose.jpg").convert()
     clock = pygame.time.Clock()
 
     """холст фейк"""
@@ -915,9 +913,9 @@ def control(canvas_fake, canvas, root):
 
 
 
-    button_play = Button(canvas, text='Enter', fg='white', bg="#696969", width=25, height='2', font='Calibri')
+    button_play = Button(canvas, text='Enter', fg='white', bg="#696969", width=20, height='2', font='Calibri')
     button_play.bind('<Button-1>', con_but)
-    button_play.place(x=360, y=640)
+    button_play.place(x=330, y=630)
 
 
     root.bind('<Escape>', lambda event: main(root, canvas_fake, canvas))
@@ -945,16 +943,20 @@ def volume(canvas_fake, canvas, root):
 
     ent1 = Entry(canvas, width=20, bd=8, font = "Calibri 20")
     ent1.insert(END, "100")
-    ent1.place(x = 50, y=200)
+    ent1.place(x = 30, y=200)
 
-    button_play = Button(canvas, text='Enter', fg='white', bg="#696969", width=25, height='2', font='Calibri')
+    button_play = Button(canvas, text='Enter', fg='white', bg="#696969", width=23, height='2', font='Calibri')
     button_play.bind('<Button-1>', volume_but)
-    button_play.place(x=360, y=200)
+    button_play.place(x=350, y=200)
 
 
 
     root.bind('<Escape>', lambda event: main(root, canvas_fake, canvas))
     root.mainloop()
+
+
+
+
 
 
 
@@ -985,25 +987,25 @@ def menu ():
 
     button_play = Button(canvas_fake, text='Play', fg = 'white', bg = "#696969", width = 30, height = '3', font = 'Calibri')
     button_play.bind('<Button-1>',lambda event: fun(root))
-    button_play.place(x = 170, y = 150)
+    button_play.place(x = 150, y = 150)
 
     button_play = Button(canvas_fake, text='Control', fg = 'white', bg = "#696969", width = 30, height = '3',
                         font = 'Calibri')
     button_play.bind('<Button-1>', lambda event: control(canvas_fake,canvas, root))
-    button_play.place(x = 170, y = 250)
+    button_play.place(x = 150, y = 250)
 
     button_play = Button(canvas_fake, text='Volume', fg = 'white', bg = "#696969", width = 30, height = '3', font = 'Calibri')
     button_play.bind('<Button-1>',lambda event: volume(canvas_fake,canvas, root))
-    button_play.place(x = 170, y = 350)
+    button_play.place(x = 150, y = 350)
 
     button_play = Button(canvas_fake, text='Description', fg = 'white', bg = "#696969", width = 30, height = '3',
                         font = 'Calibri')
     button_play.bind('<Button-1>', lambda event: description(canvas_fake,canvas, root))
-    button_play.place(x = 170, y = 450)
+    button_play.place(x = 150, y = 450)
 
     button_play = Button(canvas_fake, text='Exit', fg = 'white', bg = "#696969", width = 30, height = '3', font = 'Calibri')
     button_play.bind('<Button-1>', exit)
-    button_play.place(x = 170, y = 550)
+    button_play.place(x = 150, y = 550)
 
 
 
