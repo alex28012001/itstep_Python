@@ -1,17 +1,22 @@
 #include"CrosswordSolver.h"
-#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
-#include<string>
 #include<vector>
+#include<string>
+#include<algorithm>
 
-	
 int main()
 {
 	setlocale(0, "");
 	CrosswordSolver obj;
-	obj.getAllWithLen(14);
-	obj.getAllWithInit("а");
+	//obj.getAllWithLen(7);
+	//obj.getAllWithInit("х");
+	//obj.getAnagrams("дырка");
+	obj.findByMask("с?д");
+
 	
 
+		
+	
+	
 	return 0;
 }
