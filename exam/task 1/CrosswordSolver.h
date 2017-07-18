@@ -10,5 +10,8 @@ public:
 	CrosswordSolver();
 	void getAllWithLen(const int value);
 	void getAllWithInit(const std::string letter);
+	void findByMask(const std::string x);
+	void getAnagrams(std::string word) ;
+
 	~CrosswordSolver() {};
 };
