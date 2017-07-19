@@ -50,6 +50,7 @@ void CrosswordSolver::getAllWithLen(const int value)
 }
 
 
+
 void CrosswordSolver::getAllWithInit(const std::string letter)
 {
 	std::string FullName = "FirstLetter_" + letter + ".txt";
@@ -87,12 +88,13 @@ void CrosswordSolver::getAnagrams(const std::string word)
 
 
 
+
 void CrosswordSolver::findByMask(std::string x)
 {
 	//с?д
-	
 	std::vector<char> alf = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
 	std::vector<std::string> obj;
+
 	for (auto it : temp)
 	{
 		if (auto index = x.find('?') == true)
@@ -106,10 +108,16 @@ void CrosswordSolver::findByMask(std::string x)
 				}
 			}
 		}
-		for (auto it_obj : obj)
+
+		for (auto it2 : obj)
 		{
-				if(it == it_obj)
+			if(it.length() == it2.length())
+			{
+				if(std::equal(it.begin(), it.end(), it2.begin())== true)
 					std::cout << it << "\n";
-		}
+			}	
+		}	
 	}	
+
+
 }
