@@ -104,13 +104,18 @@ void CrosswordSolver::findByMask(std::string x)
 					x[index] = it2;
 					obj.push_back(x);
 					if (x == it)
-						std::cout << it << "\n";//std::cout << x <<"\n";				
+						std::cout << it << "\n";//std::cout << x <<"\n";		
 				}
 			}
 		}
+		for (auto it_obj : obj)
+		{
+			if(it == it_obj)
+				std::cout << it << " ";
+		}
 	}
-	for (auto it : obj)
-		std::cout << it << " ";
+	
+		
 	
 	
 }
