@@ -89,12 +89,11 @@ void CrosswordSolver::getAnagrams(const std::string word)
 void CrosswordSolver::findByMask(std::string x)
 {
 	//с?д
-	
+
 	std::vector<char> alf = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
-	std::vector<std::string> obj;
+	std::vector<std::string> tmp;
 	for (auto it : temp)
 	{
-
 		if (auto index = x.find('?') == true)
 		{
 			if (it.length() == x.length())
@@ -102,15 +101,17 @@ void CrosswordSolver::findByMask(std::string x)
 				for (auto it2 : alf)
 				{
 					x[index] = it2;
-					obj.push_back(x);
-					if (x == it)
-						std::cout << it << "\n";//std::cout << x <<"\n";				
+					tmp.push_back(x);
 				}
 			}
 		}
+		for (auto it3 : tmp)
+		{
+			if (it3 == it)
+				std::cout << it << " ";
+		}
 	}
-	for (auto it : obj)
-		std::cout << it << " ";
 	
 	
+
 }
