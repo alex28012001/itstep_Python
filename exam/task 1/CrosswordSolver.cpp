@@ -5,6 +5,7 @@
 #include<vector>
 #include<algorithm>
 
+
 std::string int_to_str(const int x)
 {
 	char str[256];
@@ -94,7 +95,6 @@ void CrosswordSolver::findByMask(std::string x)
 	std::vector<std::string> obj;
 	for (auto it : temp)
 	{
-
 		if (auto index = x.find('?') == true)
 		{
 			if (it.length() == x.length())
@@ -103,19 +103,13 @@ void CrosswordSolver::findByMask(std::string x)
 				{
 					x[index] = it2;
 					obj.push_back(x);
-					if (x == it)
-						std::cout << it << "\n";//std::cout << x <<"\n";		
 				}
 			}
 		}
 		for (auto it_obj : obj)
 		{
-			if(it == it_obj)
-				std::cout << it << " ";
+				if(it == it_obj)
+					std::cout << it << "\n";
 		}
-	}
-	
-		
-	
-	
+	}	
 }
