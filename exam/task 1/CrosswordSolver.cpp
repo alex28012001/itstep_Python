@@ -3,6 +3,7 @@
 #include<string>
 #include<fstream>
 #include<vector>
+#include<map>
 #include<algorithm>
 
 
@@ -87,10 +88,16 @@ void CrosswordSolver::getAnagrams(const std::string word)
 }
 
 
+void print_map(std::map<std::string, int> obj)
+{
+	for (auto it = obj.begin(); it != obj.end(); ++it)
+		std::cout << it->first << "  " << it->second << "\n";
+}
 
 
 void CrosswordSolver::findByMask(std::string x)
 {
+	/*
 	//с?д
 	std::vector<char> alf = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
 	std::vector<std::string> obj;
@@ -115,9 +122,33 @@ void CrosswordSolver::findByMask(std::string x)
 			{
 				if(std::equal(it.begin(), it.end(), it2.begin())== true)
 					std::cout << it << "\n";
-			}	
-		}	
-	}	
+			}
+		}
+	}
+	*/
 
+	std::map<std::string, int> obj;
+		for (auto it : temp)
+			obj.insert(std::pair<std::string, int>(it,it.length()));
+	
+		if (auto index = x.find('*') == true)
+		{
+			for (auto it = obj.begin(); it != obj.end(); ++it)
+			{
+				if (it->second == x.length())
+				{
+					auto a = std::find(obj.begin(),obj.end(),'*');
+					std::cout << obj.find(a)<<"\n";
+				}
+			}
+		}
 
+		print_map(obj);
+			
+
+		
 }
+	
+
+
+	
