@@ -5,15 +5,6 @@
 #include<vector>
 #include<algorithm>
 
-
-std::string int_to_str(const int x)
-{
-	char str[256];
-	_itoa_s(x, str, 10);
-	return str;
-}
-
-
 CrosswordSolver::CrosswordSolver()
 {
 	setlocale(0, "");
@@ -30,8 +21,12 @@ CrosswordSolver::CrosswordSolver()
 	file.close();
 }
 
-
-
+std::string int_to_str(const int x)
+{
+	char str[256];
+	_itoa_s(x, str, 10);
+	return str;
+}
 
 void CrosswordSolver::getAllWithLen(const int value)
 {
